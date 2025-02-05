@@ -2,6 +2,7 @@ package com.fitnessapp.presentation.credentials
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -54,18 +55,21 @@ fun AddCredentialsScreen(
     val sharedPreferences = context.getSharedPreferences(Constants.U_PREF, Context.MODE_PRIVATE)
     val LoggedInUserName = sharedPreferences.getString(Constants.GENDER, "") ?: ""
     var weight by remember { mutableStateOf("") } // Store the weight input
+    var isBtnEnabled by remember {
+        mutableStateOf(false)
+    }
     var isError by remember { mutableStateOf(false) } // Track if the input is invalid
     val errorMessage = "Please enter a valid weight (e.g., 50.5)" // Error message
     fun saveUserSharePref(selectedOption: String, toFloat: Float) {
-        val sharedPreferences = context.getSharedPreferences(Constants.U_PREF, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+        val SharedPref = context.getSharedPreferences(Constants.U_PREF, Context.MODE_PRIVATE)
+        val editor = SharedPref.edit()
         editor.putString(Constants.GENDER, selectedOption)
         editor.putFloat(Constants.WEIGHT, toFloat )
-
+        editor.apply() //commit changes
     }
     // radio Button
     val radioOptions = listOf("Male", "Female")
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0],) }
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf<String?>(null) }
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(8.dp),
@@ -140,17 +144,23 @@ fun AddCredentialsScreen(
                 }
             }
         }
+        if(isValidWeight(weight) && selectedOption != null){
+            isBtnEnabled = true
+        }
         //btn
         Button(
-
+           enabled = isBtnEnabled,
             onClick = {
-                saveUserSharePref(selectedOption, weight.toFloat())
-                if (isValidWeight(weight)) {
-                } else {
-                    // Handle invalid weight input
-                    isError = true
+                if (selectedOption != null) {
+                    if (isValidWeight(weight)) {
+                        saveUserSharePref(selectedOption.toString(), weight.toFloat())
+                        event(AddCredentialsEvent.SaveAppEntry)
+                    } else {
+                        Toast.makeText(context,"Please fill the Required fields,", Toast.LENGTH_SHORT).show()
+                        isError = true
+                    }
                 }
-                event(AddCredentialsEvent.SaveAppEntry)
+
                 Log.d("Valid weight entered:", "$weight and $LoggedInUserName and $selectedOption" )
             },
             modifier = Modifier

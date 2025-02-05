@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.fitnessapp.domain.useCases.AppEntryUseCases
 import com.fitnessapp.presentation.credentials.AddCredentialsScreen
 import com.fitnessapp.presentation.credentials.SaveCredentialsViewModel
+import com.fitnessapp.presentation.navgraph.NavGraph
 import com.fitnessapp.ui.theme.FitnessAppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,16 +30,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint //very necessary annotation for Hilt injection
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var appEntryUseCases: AppEntryUseCases
+    val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
-        lifecycleScope.launch {
-            appEntryUseCases.readAppEntry().collect{
-                Log.d("Entry USe case: ", it.toString())
+        installSplashScreen().apply {
+            setKeepOnScreenCondition{
+                viewModel.SplashCondition
             }
-
         }
         enableEdgeToEdge()
         setContent {
@@ -51,8 +50,8 @@ class MainActivity : ComponentActivity() {
                     )
                 }
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-                    val viewModel : SaveCredentialsViewModel = hiltViewModel()
-                    AddCredentialsScreen(event = viewModel::onEvent)
+                    val startDestination = viewModel.startDestination
+                    NavGraph(startDestination)
                 }
             }
         }
