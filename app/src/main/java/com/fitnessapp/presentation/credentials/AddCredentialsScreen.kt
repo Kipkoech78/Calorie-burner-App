@@ -52,8 +52,6 @@ fun AddCredentialsScreen(
     event: (AddCredentialsEvent) -> Unit
 ) {
     val context = LocalContext.current
-    val sharedPreferences = context.getSharedPreferences(Constants.U_PREF, Context.MODE_PRIVATE)
-    val LoggedInUserName = sharedPreferences.getString(Constants.GENDER, "") ?: ""
     var weight by remember { mutableStateOf("") } // Store the weight input
     var isBtnEnabled by remember {
         mutableStateOf(false)
@@ -160,8 +158,6 @@ fun AddCredentialsScreen(
                         isError = true
                     }
                 }
-
-                Log.d("Valid weight entered:", "$weight and $LoggedInUserName and $selectedOption" )
             },
             modifier = Modifier
                 .padding(top = 16.dp)
