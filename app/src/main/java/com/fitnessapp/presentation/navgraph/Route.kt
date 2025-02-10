@@ -6,4 +6,7 @@ sealed class Route(val route: String) {
     object DieteticsScreen: Route("dietetics")
     object  ProgressScreen: Route("ProgressScreen")
     object  StartScreen: Route("StartScreen")
+    object  WorkoutsScreen: Route("WorkoutsScreen")
+    object WorkoutListScreen: Route("WorkoutListScreen")
+    object WorkoutDetailScreen :Route("WorkoutDetailScreen")
 }

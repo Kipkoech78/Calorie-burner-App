@@ -1,18 +1,24 @@
 package com.fitnessapp.presentation.navgraph
 
+import WorkoutsVideoViewModel
 import android.content.Context
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.fitnessapp.R
 import com.fitnessapp.presentation.credentials.AddCredentialsScreen
 import com.fitnessapp.presentation.credentials.SaveCredentialsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
+import com.fitnessapp.presentation.workouts.WorkoutDetailScreen
+import com.fitnessapp.presentation.workouts.WorkoutListScreen
+import com.fitnessapp.presentation.workouts.WorkoutVideoScreen
 import com.fitnessapp.utils.Constants
 
 @Composable
@@ -26,6 +32,7 @@ fun NavGraph(startDestination: String) {
         CardItems(
             ratings = 4.5,
             gender = "male",
+            category = "lose_belly_fat",
             desc = "Lose Belly Fat",
             image = R.drawable.abbsman
         ),
@@ -33,12 +40,14 @@ fun NavGraph(startDestination: String) {
             ratings = 4.5,
             gender = "male",
             desc = "Keep Fit",
+            category = "keep_fit",
             image = R.drawable.boyarmmuscles
         ),
         CardItems(
             ratings = 4.5,
             gender = "male",
             desc = "Six Pack Abs",
+            category = "six_pack_abs",
             image = R.drawable.sexymusculer
         ),
 
@@ -46,6 +55,7 @@ fun NavGraph(startDestination: String) {
             ratings = 4.5,
             gender = "male",
             desc = "Rock Hard Abs",
+            category = "rock_hard_abs",
             image = R.drawable.abbsman
         ),
 
@@ -53,12 +63,14 @@ fun NavGraph(startDestination: String) {
             ratings = 4.5,
             gender = "female",
             desc = "Six Pack Abs",
+            category = "six_pack_abs",
             image = R.drawable.femaleabbs
         ),
 
         CardItems(
             ratings = 4.5,
             gender = "female",
+            category = "keep_fit",
             desc = "Keep Fit",
             image = R.drawable.closegirlfit
         ),
@@ -66,12 +78,14 @@ fun NavGraph(startDestination: String) {
             ratings = 4.5,
             gender = "female",
             desc = "Get Shaped",
+            category = "get_shaped",
             image = R.drawable.fitnessgirl
         ),
         CardItems(
             ratings = 4.5,
             gender = "female",
             desc = "Rock Hard Abs",
+            category = "six_pack_abs",
             image = R.drawable.womanabs1
         ),
     )
@@ -81,12 +95,29 @@ fun NavGraph(startDestination: String) {
             AddCredentialsScreen(event = viewModel::onEvent)
         }
         composable(Route.HomeScreen.route){
+
             val filterCards = cardItem.filter { it.gender.equals(gender, ignoreCase = true) }
-            HomeScreen(cards = filterCards)
+            HomeScreen(navController = navController, cards = filterCards)
         }
         composable(Route.StartScreen.route){
             Text(text = " StartScreeen Endtersddeadev ")
         }
+
+        composable(Route.WorkoutListScreen.route)
+        {
+            WorkoutListScreen(category = "keep_fit" , gender = gender, navController = navController)
+//            backStackEntry ->
+//            val category = backStackEntry.arguments?.getString("category") ?: "All"
+//          //  WorkoutListScreen(category, gender)
+//
+        }
+        composable(Route.WorkoutsScreen.route){
+            WorkoutVideoScreen()
+        }
+        composable(Route.WorkoutDetailScreen.route){
+            // WorkoutDetailScreen()
+        }
+
     }
 }
 

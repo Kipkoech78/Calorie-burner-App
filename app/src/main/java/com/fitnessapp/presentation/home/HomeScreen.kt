@@ -1,6 +1,7 @@
 package com.fitnessapp.presentation.home
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,13 +24,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.presentation.HomeCard
+import com.fitnessapp.presentation.navgraph.Route
 import com.fitnessapp.utils.Constants
+import java.io.File
+import java.io.IOException
 
 @Composable
-fun HomeScreen(cards: List<CardItems> ,modifier: Modifier = Modifier) {
-
+fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
     Column(modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()) {
@@ -45,8 +49,10 @@ fun HomeScreen(cards: List<CardItems> ,modifier: Modifier = Modifier) {
             cards.forEach { card->
                 Spacer(modifier = Modifier.height(10.dp))
                     HomeCard(text = card.desc,
-                        rating = card.ratings ,
-                        onClick = { /*TODO*/ },
+                        rating = card.ratings,
+                        onClick = {
+                            navController.navigate(Route.WorkoutListScreen.route)
+                        },
                         imageVector = painterResource(id = card.image))
             }
         }

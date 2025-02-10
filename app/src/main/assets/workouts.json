@@ -1,0 +1,27 @@
+[
+  {
+    "videoResId": "womansitups",
+    "category": "keep-fit",
+    "gender": "male",
+    "description": "Push-ups are great for upper body strength Steph should work on this file."
+  },
+  {
+    "videoResId": "womanjump",
+    "category": "six_pack_abs",
+    "gender": "female",
+    "description": "Squats help build lower body muscles."
+  },
+  {
+    "videoResId": "womansitups1",
+    "category": "keep_fit",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "frogjumpwoman",
+    "category": "keep_fit",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  }
+
+]
