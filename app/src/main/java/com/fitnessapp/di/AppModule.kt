@@ -1,6 +1,8 @@
 package com.fitnessapp.di
 
 import android.app.Application
+import android.content.Context
+import com.fitnessapp.data.repository.local.WorkoutRepository
 import com.fitnessapp.data.repository.manager.LocalUserManagerImpl
 import com.fitnessapp.domain.manager.LocalUserManager
 import com.fitnessapp.domain.useCases.AppEntryUseCases
@@ -13,6 +15,7 @@ import com.fitnessapp.domain.useCases.SaveWeight
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -26,6 +29,12 @@ object AppModule {
         application: Application
     ) : LocalUserManager = LocalUserManagerImpl(application)
 
+
+    @Provides
+    @Singleton
+    fun provideWorkoutRepository(@ApplicationContext context: Context): WorkoutRepository {
+        return WorkoutRepository(context)
+    }
     @Provides
     @Singleton
     fun providesAppEntryUseCases(

@@ -1,22 +1,18 @@
 package com.fitnessapp.presentation.navgraph
 
-import WorkoutsVideoViewModel
 import android.content.Context
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.fitnessapp.R
 import com.fitnessapp.presentation.credentials.AddCredentialsScreen
 import com.fitnessapp.presentation.credentials.SaveCredentialsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
-import com.fitnessapp.presentation.workouts.WorkoutDetailScreen
 import com.fitnessapp.presentation.workouts.WorkoutListScreen
 import com.fitnessapp.presentation.workouts.WorkoutVideoScreen
 import com.fitnessapp.utils.Constants
@@ -27,7 +23,6 @@ fun NavGraph(startDestination: String) {
     val sharedPreferences = context.getSharedPreferences(Constants.U_PREF, Context.MODE_PRIVATE)
     val gender = sharedPreferences.getString(Constants.GENDER, "") ?: ""
     val navController = rememberNavController()
-
     val cardItem = listOf(
         CardItems(
             ratings = 4.5,
@@ -103,13 +98,11 @@ fun NavGraph(startDestination: String) {
             Text(text = " StartScreeen Endtersddeadev ")
         }
 
-        composable(Route.WorkoutListScreen.route)
-        {
-            WorkoutListScreen(category = "keep_fit" , gender = gender, navController = navController)
-//            backStackEntry ->
-//            val category = backStackEntry.arguments?.getString("category") ?: "All"
-//          //  WorkoutListScreen(category, gender)
-//
+        composable("WorkoutListScreen/{category}" ) { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category")?:""
+           // val viewModel: com.fitnessapp.presentation.workouts.WorkoutViewModel = hiltViewModel()
+            WorkoutListScreen(category = category, navController = navController )
+
         }
         composable(Route.WorkoutsScreen.route){
             WorkoutVideoScreen()

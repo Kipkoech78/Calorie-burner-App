@@ -1,15 +1,12 @@
 package com.fitnessapp.presentation.workouts
-import WorkoutsVideoViewModel
 import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.FrameLayout
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,17 +18,16 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,12 +42,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
-
 @Composable
 fun WorkoutVideoScreen() {
     val context = LocalContext.current
@@ -120,17 +116,20 @@ fun loadWorkoutVideos(context: Context): List<WorkoutVideo> {
 }
 
 @Composable
-fun WorkoutDetailScreen(workoutVideo: WorkoutVideo, onBack: () -> Unit) {
+fun WorkoutDetailScreen(
+    videoResId: Int,
+    onBack: () -> Unit
+) {
     val context = LocalContext.current
     val videoView = remember { VideoView(context) }
 
-    LaunchedEffect(workoutVideo) {
-        val videoUri =
-            Uri.parse("android.resource://${context.packageName}/raw/${workoutVideo.videoResId}")
+    LaunchedEffect(videoResId) {
+        val videoUri = Uri.parse("android.resource://${context.packageName}/$videoResId")
         videoView.setVideoURI(videoUri)
         videoView.setOnCompletionListener { videoView.start() }  // Loop video
         videoView.start()
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -145,53 +144,51 @@ fun WorkoutDetailScreen(workoutVideo: WorkoutVideo, onBack: () -> Unit) {
             Text("Back")
         }
 
-        Text(
-            text = workoutVideo.category,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-        )
-
         AndroidView(
             factory = { videoView },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp)
         )
-        Text(
-            text = workoutVideo.description,
-            fontSize = 16.sp,
-            color = Color.DarkGray,
-            modifier = Modifier.padding(top = 16.dp)
-        )
     }
 }
 @Composable
-fun WorkoutListScreen( category: String, gender: String, navController: NavController) {
+fun WorkoutListScreen(
+    viewModel: WorkoutViewModel = hiltViewModel(),
+    category: String,
+    navController: NavController) {
     val context = LocalContext.current
-    val allVideos = remember { loadWorkoutVideos(context) }
-    val filteredVideos = remember(gender, category) {
-        allVideos.filter {
-            it.gender.equals(gender , ignoreCase = true)
-        }
+    val filteredWorkouts by viewModel.filteredWorkouts.collectAsState()
+
+    LaunchedEffect(category) {
+        viewModel.filterWorkoutsByCategory(category)
     }
-    Log.d("gender and cat", "${filteredVideos}")
-    if(filteredVideos.isNotEmpty()){
+
+//
+//    val allVideos = remember { loadWorkoutVideos(context) }
+//    val filteredVideos = remember(gender, category) {
+//        allVideos.filter {
+//            it.gender.equals(gender , ignoreCase = true)
+//        }
+//    }
+    Log.d("gender and cat", "${filteredWorkouts}")
+    if(filteredWorkouts.isNotEmpty()){
         Column(
             modifier = Modifier
                 .statusBarsPadding()
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            filteredVideos.forEach { video ->
+            filteredWorkouts.forEach { video ->
+                val videoResId = video.videoResId
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(120.dp)
                         .padding(8.dp)
                         .clickable {
-                            //TODO
-                            //navController.navigate(Route.WorkoutDetailScreen.route)
+
+                            navController.navigate("WorkoutDetailScreen/${videoResId}")
                         },
                     elevation = CardDefaults.cardElevation(50.dp) ,
                     shape = RoundedCornerShape(12.dp)
@@ -205,7 +202,6 @@ fun WorkoutListScreen( category: String, gender: String, navController: NavContr
                             .weight(0.4f)) {
                             WorkoutsVideoPlayer(uri = video.videoResId)
                         }
-
                     Column(
                         modifier = Modifier
                             .weight(0.6f)
@@ -236,6 +232,6 @@ fun WorkoutListScreen( category: String, gender: String, navController: NavContr
         Spacer(modifier = Modifier.height(100.dp))
         Text(text =" Null Values", color = colorResource(id = R.color.text_title))
     }
-    
+
 }
 

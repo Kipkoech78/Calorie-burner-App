@@ -66,3 +66,4 @@ private object PreferenceKeys{
     val U_GENDER = stringPreferencesKey(name = GENDER)
     val U_WEIGHT = floatPreferencesKey(name = WEIGHT)
 }
+
