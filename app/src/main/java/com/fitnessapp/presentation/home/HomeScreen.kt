@@ -1,6 +1,7 @@
 package com.fitnessapp.presentation.home
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import com.fitnessapp.R
 import com.fitnessapp.presentation.HomeCard
 import com.fitnessapp.presentation.navgraph.Route
 import com.fitnessapp.utils.Constants
+import com.google.gson.Gson
 import java.io.File
 import java.io.IOException
 
@@ -52,6 +54,7 @@ fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
                     HomeCard(text = card.desc,
                         rating = card.ratings,
                         onClick = {
+
                             navController.navigate("WorkoutListScreen/${card.category}")
                         },
                         imageVector = painterResource(id = card.image))

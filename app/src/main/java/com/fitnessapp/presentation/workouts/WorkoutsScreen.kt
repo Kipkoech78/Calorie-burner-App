@@ -114,44 +114,6 @@ fun loadWorkoutVideos(context: Context): List<WorkoutVideo> {
         emptyList()
     }
 }
-
-@Composable
-fun WorkoutDetailScreen(
-    videoResId: Int,
-    onBack: () -> Unit
-) {
-    val context = LocalContext.current
-    val videoView = remember { VideoView(context) }
-
-    LaunchedEffect(videoResId) {
-        val videoUri = Uri.parse("android.resource://${context.packageName}/$videoResId")
-        videoView.setVideoURI(videoUri)
-        videoView.setOnCompletionListener { videoView.start() }  // Loop video
-        videoView.start()
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(
-            onClick = { onBack() },
-            modifier = Modifier.align(Alignment.Start)
-        ) {
-            Text("Back")
-        }
-
-        AndroidView(
-            factory = { videoView },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
-        )
-    }
-}
 @Composable
 fun WorkoutListScreen(
     viewModel: WorkoutViewModel = hiltViewModel(),
@@ -163,14 +125,6 @@ fun WorkoutListScreen(
     LaunchedEffect(category) {
         viewModel.filterWorkoutsByCategory(category)
     }
-
-//
-//    val allVideos = remember { loadWorkoutVideos(context) }
-//    val filteredVideos = remember(gender, category) {
-//        allVideos.filter {
-//            it.gender.equals(gender , ignoreCase = true)
-//        }
-//    }
     Log.d("gender and cat", "${filteredWorkouts}")
     if(filteredWorkouts.isNotEmpty()){
         Column(
@@ -180,15 +134,15 @@ fun WorkoutListScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             filteredWorkouts.forEach { video ->
-                val videoResId = video.videoResId
+               // val videoResId = video.videoResId
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(120.dp)
                         .padding(8.dp)
                         .clickable {
-
-                            navController.navigate("WorkoutDetailScreen/${videoResId}")
+                            val videoJson = Uri.encode(Gson().toJson(video))
+                            navController.navigate("WorkoutDetailScreen/$videoJson")
                         },
                     elevation = CardDefaults.cardElevation(50.dp) ,
                     shape = RoundedCornerShape(12.dp)

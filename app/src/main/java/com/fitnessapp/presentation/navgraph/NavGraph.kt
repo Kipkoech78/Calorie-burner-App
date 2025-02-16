@@ -1,6 +1,8 @@
 package com.fitnessapp.presentation.navgraph
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -9,13 +11,16 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.fitnessapp.R
+import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.presentation.credentials.AddCredentialsScreen
 import com.fitnessapp.presentation.credentials.SaveCredentialsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
+import com.fitnessapp.presentation.workouts.WorkoutDetailScreen
 import com.fitnessapp.presentation.workouts.WorkoutListScreen
 import com.fitnessapp.presentation.workouts.WorkoutVideoScreen
 import com.fitnessapp.utils.Constants
+import com.google.gson.Gson
 
 @Composable
 fun NavGraph(startDestination: String) {
@@ -102,6 +107,15 @@ fun NavGraph(startDestination: String) {
             val category = backStackEntry.arguments?.getString("category")?:""
            // val viewModel: com.fitnessapp.presentation.workouts.WorkoutViewModel = hiltViewModel()
             WorkoutListScreen(category = category, navController = navController )
+
+        }
+        composable("WorkoutDetailScreen/{video}"){ backStackEntry ->
+            val videoResId = backStackEntry.arguments?.getString("video")
+            val videoJson = backStackEntry.arguments?.getString("video")
+            val video = videoJson?.let { Gson().fromJson(it, WorkoutVideo::class.java) }
+
+            Log.d("videos at navGraph", "$video")
+            WorkoutDetailScreen(videoResId =video!!)
 
         }
         composable(Route.WorkoutsScreen.route){
