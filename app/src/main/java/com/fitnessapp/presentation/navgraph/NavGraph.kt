@@ -115,7 +115,7 @@ fun NavGraph(startDestination: String) {
             val video = videoJson?.let { Gson().fromJson(it, WorkoutVideo::class.java) }
 
             Log.d("videos at navGraph", "$video")
-            WorkoutDetailScreen(videoResId =video!!)
+            WorkoutDetailScreen(videoResId =video!!, navController = navController)
 
         }
         composable(Route.WorkoutsScreen.route){

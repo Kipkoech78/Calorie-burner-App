@@ -6,6 +6,7 @@ import android.os.Looper
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.annotation.OptIn
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -32,6 +34,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,6 +53,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+import kotlin.math.round
 
 @OptIn(UnstableApi::class)
 @Composable
@@ -95,6 +100,7 @@ fun WorkoutsVideoDetailPlayer(uri: String,) {
     val context = LocalContext.current
     var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
     val coroutineScope = rememberCoroutineScope()
+    var isTimeElapsed by remember { mutableStateOf(0)}
     var isPlaying by remember { mutableStateOf(true) }
     var timerJob by remember{ mutableStateOf<Job?>(null)}
 
@@ -145,20 +151,23 @@ fun WorkoutsVideoDetailPlayer(uri: String,) {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth().padding(horizontal = 13.dp),
+            //.clip(RoundedCornerShape(20.dp))
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.Start
     ) {
         // Display the PlayerView
         AndroidView(
             modifier = Modifier
+                .clip(RoundedCornerShape(20.dp))
                 .fillMaxWidth()
                 .height(300.dp),
             factory = { playerView.apply { this.player = player } }
         )
         // Timer display
         Spacer(modifier = Modifier.height(20.dp))
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth(),
+        Row(
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
             ){
             Text(
                 text = "Time left: ${timeLeft}s",
@@ -167,6 +176,10 @@ fun WorkoutsVideoDetailPlayer(uri: String,) {
                 color = colorResource(id = R.color.input_background)
 
             )
+            fun returnEnabled(): Boolean{
+                return timeLeft >= 0
+            }
+
             Button(
                 onClick = {
                     if (isPlaying) {
@@ -178,13 +191,13 @@ fun WorkoutsVideoDetailPlayer(uri: String,) {
                         isPlaying = true
                         startTimer() // Resume timer
                     }
-                }
+                },
+                enabled = returnEnabled(),
             ) {
                 Text(if (isPlaying) "Stop" else "Continue")
             }
 
         }
-
         Button(
             modifier = Modifier.padding(5.dp),
             onClick = {

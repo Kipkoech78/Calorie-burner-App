@@ -49,14 +49,13 @@ fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
             .verticalScroll(rememberScrollState())
             ) {
             cards.forEach { card->
-
                 Spacer(modifier = Modifier.height(10.dp))
                     HomeCard(text = card.desc,
                         rating = card.ratings,
                         onClick = {
-
                             navController.navigate("WorkoutListScreen/${card.category}")
                         },
+
                         imageVector = painterResource(id = card.image))
             }
         }
