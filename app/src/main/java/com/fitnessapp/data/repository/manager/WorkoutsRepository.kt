@@ -1,4 +1,4 @@
-package com.fitnessapp.data.repository.local
+package com.fitnessapp.data.repository.manager
 
 import android.content.Context
 import com.fitnessapp.models.WorkoutVideo

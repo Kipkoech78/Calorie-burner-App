@@ -15,11 +15,11 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,10 +29,6 @@ import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.presentation.HomeCard
 import com.fitnessapp.presentation.navgraph.Route
-import com.fitnessapp.utils.Constants
-import com.google.gson.Gson
-import java.io.File
-import java.io.IOException
 
 @Composable
 fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
@@ -44,20 +40,25 @@ fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = colorResource(
-            id = R.color.body))
+                id = R.color.body))
         Column(modifier = Modifier
             .verticalScroll(rememberScrollState())
-            ) {
+        ) {
             cards.forEach { card->
                 Spacer(modifier = Modifier.height(10.dp))
-                    HomeCard(text = card.desc,
-                        rating = card.ratings,
-                        onClick = {
-                            navController.navigate("WorkoutListScreen/${card.category}")
-                        },
+                HomeCard(text = card.desc,
+                    rating = card.ratings,
+                    onClick = {
+                        navController.navigate("WorkoutListScreen/${card.category}")
+                    },
 
-                        imageVector = painterResource(id = card.image))
+                    imageVector = painterResource(id = card.image))
             }
         }
+        Button(onClick = {  navController.navigate(Route.ProgressScreen.route) }) {
+            Text(text = "Progress ")
+           
+        }
+       
     }
 }

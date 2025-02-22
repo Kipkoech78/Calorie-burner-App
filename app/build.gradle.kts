@@ -114,6 +114,8 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.5.2")
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.5.2")
+    //graph drawer
+
 
     //Gson
     implementation ("com.google.code.gson:gson:2.12.1")

@@ -91,28 +91,31 @@ fun HomeCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column(modifier = Modifier
+                Column(modifier = Modifier.padding(top = 15.dp)
                     .weight(0.6f)
                     .padding(horizontal = 20.dp)) {
+                    Text(modifier = Modifier,
+                        text = text,
+                        color = colorResource(id = R.color.text_title),
+                        fontSize = 20.sp,
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
                     StarRatingBar(
                         maxStars = 5,
                         rating = rating,
                         onRatingChanged = {
                         }
                     )
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(
-                        text = text,
-                        color = colorResource(id = R.color.text_title),
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Normal),
+                    Spacer(modifier = Modifier.height(20.dp)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
                     if(loadingState){
                             LinearProgressIndicator(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .heightIn(3.dp),
-                                color = MaterialTheme.colorScheme.primary
+                                color = MaterialTheme.colorScheme.primary,
+
                             )
 
                     }

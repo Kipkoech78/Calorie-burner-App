@@ -55,6 +55,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
+import com.fitnessapp.presentation.navgraph.Route
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 @Composable
@@ -128,8 +129,10 @@ fun loadWorkoutVideos(context: Context): List<WorkoutVideo> {
 fun WorkoutListScreen(
     viewModel: WorkoutViewModel = hiltViewModel(),
     category: String,
-    navController: NavController) {
-    val context = LocalContext.current
+    navigateUp: ()-> Unit,
+    navController: NavController
+    // navigateToDet: (WorkoutVideo) -> Unit
+) {
     val filteredWorkouts by viewModel.filteredWorkouts.collectAsState()
     LaunchedEffect(category) {
         viewModel.filterWorkoutsByCategory(category)
@@ -149,7 +152,7 @@ fun WorkoutListScreen(
                     Image(
                         painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = "",
                         modifier = Modifier.size(50.dp).clip(RoundedCornerShape(50.dp)).padding(end = 20.dp)
-                            .clickable { navController.navigateUp() }
+                            .clickable { navigateUp() }
                     )
                     Text(text = "Composure,, Lets keep fit Today.",modifier = Modifier.weight(0.8f),
                         textAlign = TextAlign.Center,
