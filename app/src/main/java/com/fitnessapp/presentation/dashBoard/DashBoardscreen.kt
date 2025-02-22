@@ -128,7 +128,7 @@ fun BarGraph(
                     )
                     drawLine(
                         start = Offset(x = yAxisTextWidth.toPx(), y = size.height),
-                        end = Offset(x = size.width add , y = size.height),
+                        end = Offset(x = size.width , y = size.height),
                         color = androidx.compose.ui.graphics.Color.Black,
                         strokeWidth = 3f
                     )
