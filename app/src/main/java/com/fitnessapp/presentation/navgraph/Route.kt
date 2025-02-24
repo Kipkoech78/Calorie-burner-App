@@ -9,4 +9,5 @@ sealed class Route(val route: String) {
     object  WorkoutsScreen: Route("WorkoutsScreen")
     object WorkoutListScreen: Route("WorkoutListScreen")
     object WorkoutDetailScreen :Route("WorkoutDetailScreen")
+    object FitnessNavigatorScreen: Route("FitnessNavigator")
 }
