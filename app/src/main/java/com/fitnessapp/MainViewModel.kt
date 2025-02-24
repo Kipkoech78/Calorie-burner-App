@@ -18,15 +18,14 @@ class MainViewModel @Inject constructor(private val appEntryPoint: AppEntryUseCa
     : ViewModel(){
         var SplashCondition by mutableStateOf(true)
             private set
-    var startDestination by mutableStateOf(Route.HomeScreen.route)
+    var startDestination by mutableStateOf(Route.FitnessNavigatorScreen.route)
         private set
     init {
         appEntryPoint.readAppEntry().onEach { shouldStartHome ->
-            if(shouldStartHome){
-                startDestination = Route.HomeScreen.route
-
+            startDestination = if(shouldStartHome){
+                Route.FitnessNavigatorScreen.route
             }else{
-                startDestination = Route.AddCredentialsScreen.route
+                Route.AddCredentialsScreen.route
             }
             delay(300)
             SplashCondition = false
