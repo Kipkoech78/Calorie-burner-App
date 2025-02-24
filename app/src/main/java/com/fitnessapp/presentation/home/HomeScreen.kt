@@ -55,10 +55,6 @@ fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
                     imageVector = painterResource(id = card.image))
             }
         }
-        Button(onClick = {  navController.navigate(Route.ProgressScreen.route) }) {
-            Text(text = "Progress ")
-           
-        }
        
     }
 }
