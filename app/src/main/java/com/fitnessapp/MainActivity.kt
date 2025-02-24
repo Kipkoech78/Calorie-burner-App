@@ -55,8 +55,6 @@ class MainActivity : ComponentActivity() {
                 }
                 Box(modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.background)
-
-                    
                 ){
                     val startDestination = viewModel.startDestination
                     Spacer(modifier = Modifier.height(30.dp))
