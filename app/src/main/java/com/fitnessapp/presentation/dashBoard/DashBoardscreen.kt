@@ -135,7 +135,6 @@ fun BarGraph(
                 }
             }
         }
-
         Box(
             modifier = Modifier
                 .padding(start = 50.dp)
