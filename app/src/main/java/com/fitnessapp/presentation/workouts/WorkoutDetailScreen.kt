@@ -57,6 +57,25 @@ fun WorkoutsDetailScreen(
     progress: WorkoutVideo?,
     navigateUp: () -> Unit
 ) {
+    val context = LocalContext.current
+    var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
+    val coroutineScope = rememberCoroutineScope()
+    var isTimeElapsed by remember { mutableStateOf(0)}
+    var isPlaying by remember { mutableStateOf(true) }
+    var timerJob by remember{ mutableStateOf<Job?>(null)}
+    val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    // Initialize the ExoPlayer
+    val player = remember {
+        SimpleExoPlayer.Builder(context).build().apply {
+            repeatMode = Player.REPEAT_MODE_ALL
+        }
+    }
+    // Initialize the PlayerView
+    val playerView = remember {
+        PlayerView(context).apply {
+            useController = false
+        }
+    }
 
     Column(modifier = Modifier
         .fillMaxSize().padding(top = 10.dp)
@@ -88,25 +107,7 @@ fun WorkoutsDetailScreen(
         progress?.videoResId?.let {
             Column(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))) {
 
-                val context = LocalContext.current
-                var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
-                val coroutineScope = rememberCoroutineScope()
-                var isTimeElapsed by remember { mutableStateOf(0)}
-                var isPlaying by remember { mutableStateOf(true) }
-                var timerJob by remember{ mutableStateOf<Job?>(null)}
-                val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-                // Initialize the ExoPlayer
-                val player = remember {
-                    SimpleExoPlayer.Builder(context).build().apply {
-                        repeatMode = Player.REPEAT_MODE_ALL
-                    }
-                }
-                // Initialize the PlayerView
-                val playerView = remember {
-                    PlayerView(context).apply {
-                        useController = false
-                    }
-                }
+
                 // Parse the video URI
                 val videoUrl = Uri.parse("android.resource://${context.packageName}/raw/${progress.videoResId}")
                 val mediaItem = MediaItem.fromUri(videoUrl)
@@ -132,6 +133,8 @@ fun WorkoutsDetailScreen(
                 // Release the player when the Composable is disposed
                 DisposableEffect(Unit) {
                     onDispose {
+                        player.playWhenReady = false
+                        player.stop()
                         player.release()
                         timerJob?.cancel()
                     }
@@ -147,8 +150,8 @@ fun WorkoutsDetailScreen(
                     AndroidView(
                         modifier = Modifier
                             .clip(RoundedCornerShape(20.dp))
-                            .fillMaxWidth()
-                            .height(300.dp),
+                            .fillMaxWidth(),
+
                         factory = { playerView.apply { this.player = player } }
                     )
                     // Timer display

@@ -77,6 +77,10 @@ dependencies {
     //Splash Api
     implementation ("androidx.core:core-splashscreen:1.0.1")
 
+    //Retrofit
+    implementation( "com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
     //Compose Navigation
     implementation ("androidx.navigation:navigation-compose:2.6.0")
 

@@ -53,6 +53,8 @@ import androidx.compose.ui.unit.sp
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.presentation.workouts.loadWorkoutVideos
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -74,7 +76,8 @@ fun HomeCard(
         .fillMaxWidth()
         .clickable {
             loadingState = true
-            scope.launch {
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(100)
                 loadProgress { progres->
                     progress = progres
                 }

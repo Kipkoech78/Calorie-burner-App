@@ -70,6 +70,8 @@ fun WorkoutsVideoPlayer(uri: String) {
     // Release the player when the Composable is disposed
     DisposableEffect(Unit) {
         onDispose {
+            player.playWhenReady = false
+            player.stop()
             player.release() // Release resources when the Composable leaves the screen
         }
     }

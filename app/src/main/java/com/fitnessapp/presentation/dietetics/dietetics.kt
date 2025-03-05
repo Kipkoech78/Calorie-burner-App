@@ -1,8 +1,10 @@
-package com.fitnessapp.presentation
+package com.fitnessapp.presentation.dietetics
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -13,20 +15,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
 import com.fitnessapp.R
-import com.fitnessapp.presentation.navgraph.Route
+import com.fitnessapp.models.Meal
+
 @Composable
-fun DieteticsScreen( ) {
+fun DieteticsScreen(meals: LazyPagingItems<Meal>,
+                   // navigateToSearch:() -> Unit,
+                   // navigateToDetails: (Meal) -> Unit,
+                    ) {
     Column(modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()) {
-        Text(modifier = Modifier.padding(5.dp).fillMaxWidth().heightIn(70.dp),
-            text = "Dietetics Implementation".repeat(5),
-            fontSize = 40.sp,
-            maxLines = 10,
-            lineHeight = 50.sp,
-            color = colorResource(id = R.color.text_title),
-            style = MaterialTheme.typography.titleMedium,
-            )
+        Spacer(modifier = Modifier.height(10.dp))
+        ArticlesList(modifier = Modifier.padding(horizontal = 6.dp),
+            meals = meals,
+           // onClick = {navigateToDetails(it)}
+        )
     }
 }

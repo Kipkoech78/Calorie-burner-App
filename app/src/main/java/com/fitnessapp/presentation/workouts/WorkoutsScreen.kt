@@ -55,6 +55,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
+import com.fitnessapp.presentation.EmptyScreen
 import com.fitnessapp.presentation.navgraph.Route
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
@@ -145,13 +146,18 @@ fun WorkoutListScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             TopAppBar(title = {
-                Row(modifier = Modifier.fillMaxWidth().padding(end = 10.dp),
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = "",
-                        modifier = Modifier.size(50.dp).clip(RoundedCornerShape(50.dp)).padding(end = 20.dp)
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(RoundedCornerShape(50.dp))
+                            .padding(end = 20.dp)
                             .clickable { navigateUp() }
                     )
                     Text(text = "Composure,, Lets keep fit Today.",modifier = Modifier.weight(0.8f),
@@ -208,7 +214,7 @@ fun WorkoutListScreen(
         }
     }else{
         Spacer(modifier = Modifier.height(100.dp))
-        Text(text =" Null Values", color = colorResource(id = R.color.text_title))
+        EmptyScreen()
     }
 
 }

@@ -37,11 +37,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
-import com.fitnessapp.presentation.DieteticsScreen
+import com.fitnessapp.presentation.dietetics.DieteticsScreen
 import com.fitnessapp.presentation.dashBoard.DashboardScreen
 import com.fitnessapp.presentation.dashBoard.WorkoutsProgressViewModel
+import com.fitnessapp.presentation.dietetics.DieteticsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
 import com.fitnessapp.presentation.navgraph.Route
@@ -174,12 +176,19 @@ fun FitnessNavigator() {
                 val category = backStackEntry.arguments?.getString("category")?:""
                 // val viewModel: com.fitnessapp.presentation.workouts.WorkoutViewModel = hiltViewModel()
                 WorkoutListScreen(category = category, navController = navController, navigateUp = {
-                    navController.navigateUp()
+                    navController.navigate(Route.HomeScreen.route){
+                        popUpTo(Route.WorkoutListScreen.route){
+                            inclusive = true
+                            saveState = true
+                        }
+                    }
                 } )
 
             }
             composable(Route.DieteticsScreen.route){
-                DieteticsScreen()
+                val viewModel: DieteticsViewModel = hiltViewModel()
+                val meals = viewModel.meals.collectAsLazyPagingItems()
+                DieteticsScreen(meals = meals)
             }
             //
             composable("WorkoutDetailScreen/{video}"){ backStackEntry ->
@@ -189,7 +198,8 @@ fun FitnessNavigator() {
                 val video = videoJson?.let { Gson().fromJson(it, WorkoutVideo::class.java) }
                 Log.d("videos at navGraph", "$video")
                 WorkoutsDetailScreen(progress =video!!,
-                    navigateUp = { navController.navigateUp() },
+                    navigateUp = { navController.navigateUp()
+                    },
                     event = viewModel::onEvent
                 )
             }

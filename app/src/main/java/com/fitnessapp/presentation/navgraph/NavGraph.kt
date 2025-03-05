@@ -10,20 +10,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.fitnessapp.R
-import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.presentation.FitnessBaseNavigation.FitnessNavigator
 import com.fitnessapp.presentation.credentials.AddCredentialsScreen
 import com.fitnessapp.presentation.credentials.SaveCredentialsViewModel
-import com.fitnessapp.presentation.dashBoard.DashboardScreen
-import com.fitnessapp.presentation.dashBoard.WorkoutsProgressViewModel
-import com.fitnessapp.presentation.home.CardItems
-import com.fitnessapp.presentation.home.HomeScreen
-import com.fitnessapp.presentation.workouts.WorkoutListScreen
-import com.fitnessapp.presentation.workouts.WorkoutViewModel
-import com.fitnessapp.presentation.workouts.WorkoutsDetailScreen
-import com.fitnessapp.utils.Constants
-import com.google.gson.Gson
+
 
 @Composable
 fun NavGraph(startDestination: String) {
