@@ -1,15 +1,18 @@
 package com.fitnessapp.presentation.workouts
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fitnessapp.data.repository.manager.WorkoutRepository
 import com.fitnessapp.domain.useCases.progressUseCases.ProgressUseCases
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.models.WorkoutsProgress
+import com.fitnessapp.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,8 +27,11 @@ class WorkoutViewModel @Inject constructor(
     //add Use case
     private val useCase: ProgressUseCases,
     //
+
     private val repository: WorkoutRepository
 ) : ViewModel() {
+
+
     var sideEffect by mutableStateOf<String?>(null)
         private set
     //useCAse Usage
@@ -87,8 +93,8 @@ class WorkoutViewModel @Inject constructor(
             _workouts.value = repository.loadWorkoutVideos()
         }
     }
-    fun filterWorkoutsByCategory(category: String) {
+    fun filterWorkoutsByCategory(category: String, gender: String) {
         _selectedCategory.value = category
-        _filteredWorkouts.value = _workouts.value.filter { it.category == category  }
+        _filteredWorkouts.value = _workouts.value.filter { it.category == category  && it.gender == gender }
     }
 }

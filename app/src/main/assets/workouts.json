@@ -1,26 +1,255 @@
 [
   {
-    "videoResId": "womansitups",
-    "category": "keep-fit",
-    "gender": "male",
-    "description": "Push-ups are great for upper body strength Steph should work on this file."
-  },
-  {
     "videoResId": "womanjump",
+    "name": "Woman Jump",
     "category": "six_pack_abs",
     "gender": "female",
     "description": "Squats help build lower body muscles."
   },
   {
-    "videoResId": "womansitups1",
-    "category": "keep_fit",
-    "gender": "male",
+    "videoResId": "woman_situps",
+    "name": "woman Situps",
+    "category": "abs",
+    "gender": "female",
     "description": "Jumping jacks improve heart health and endurance."
   },
   {
     "videoResId": "frogjumpwoman",
-    "category": "keep_fit",
+    "name":"Women Frog Jump",
+    "category": "lower_body",
     "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "womandoing_sumo_squat_jump",
+    "name": "Woman Doing Sumo squat jump",
+    "category": "full_body",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "bent_knee_hip_woman_female_training_women",
+    "name": "",
+    "category": "lower_body",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "woman_doing_flutter_kicks",
+    "category": "abs",
+    "name": "",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "woman_doing_mountain_climber",
+    "category": "abs",
+    "name": "",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "crunch_exercise_girl",
+    "category": "abs",
+    "name": "",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "donkey_kicks_pulses_13568900_11124450",
+    "name": "",
+    "category": "lower_body",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "elbow_to_knee_crunch_13750151_11124446",
+    "name": "",
+    "category": "lower_body",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "frogjumpwoman",
+    "name": "",
+    "category": "lower_body",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "glute_bridge_exercise_13750152_11124447",
+    "name": "",
+    "category": "lower_body",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "knee_push_up_exercise_13568907_11124455",
+    "category": "upper_body",
+    "name": "",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "leg_pull_low_plank_13568919_11124466",
+    "category": "lower_body",
+    "name": "",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "losebelly",
+    "category": "lower_body",
+    "name": "",
+    "gender": "female",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "man_doing_ab_rollout",
+    "name": "",
+    "category": "abs",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+
+  },
+  {
+    "videoResId": "man_doing_narrow_squat_exercise_for_legs",
+    "name": "",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId": "man_doing_back_extension_exercise_for_glute",
+    "name": "",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" : "man_doing_back_to_forward_lunge_exercise" ,
+    "name": "",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_bench_pistol_squat" ,
+    "name": "",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_bent_knee_hip_raise_exercise_for_abs" ,
+    "name": "",
+    "category": "abs",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+
+  {
+    "videoResId" :"man_doing_body_saw_exercise_for_abs_and_shoulders" ,
+    "name": "",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_bodyweight_good_morning_exercise_for_legs_and_lower_back" ,
+    "name": "",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_bodyweight_swing_cardio_exercise_12894513_10469920" ,
+    "name": "",
+    "gender": "male",
+    "category": "full_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_bodyweight_kneeling_tricep_extension_exercise_for_arm" ,
+    "name": "",
+    "gender": "male",
+    "category": "upper_body",
+    "description": "Jumping jacks improve heart health and endurance"
+  },
+  {
+    "videoResId" :"man_doing_burpee_cardio_exercise" ,
+    "name": "",
+    "gender": "male",
+    "category": "full_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_calf_raise_exercise_for_legs" ,
+    "name": "man doing calf raise",
+    "gender": "male",
+    "category": "lower_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_captains_chair_knee_raise_exercise_for_abs_12894526_10469933",
+    "name": "man doing captain chair knee raise exercise for Abs",
+    "gender": "male",
+    "category": "abs",
+    "description": "Jumping jacks improve heart health and endurance"
+  },
+  {
+    "videoResId" :"man_doing_captains_chair_leg_raise_exercise_for_abs_12894527_10469934",
+    "name": "man doing captain chair leg raise exercise for abs",
+    "gender": "male",
+    "category": "abs",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_chest_dip_exercise_for_chest" ,
+    "name": "man doing chest dip exercise",
+    "gender": "male",
+    "category": "upper_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_close_grip_pull_up_exercise_for_back" ,
+    "name": "man doing close grip pull up exercise for back",
+    "gender": "male",
+    "category": "upper_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_close_push_up_exercise_for_chest" ,
+    "name": "man doing close push up exercise",
+    "gender": "male",
+    "category": "upper_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_side_crunche_hip_raise_exercise_for_oblique_12948501_10520810" ,
+    "name": "man doing side crunch hip raise exercise",
+    "gender": "male",
+    "category": "abs",
+    "description": "Jumping jacks improve heart health and endurance."
+  },
+  {
+    "videoResId" :"man_doing_sumo_squat_jumps_cardio" ,
+    "name": "man doing sumo squat jumps cardio",
+    "gender": "male",
+    "category": "full_body",
+    "description": "Jumping jacks improve heart health and endurance."
+  }, {
+  "videoResId" :"man_doing_crab_toe_touches_cardio_exercise" ,
+  "name": "man doing crab toe touches cardio exercise",
+  "gender": "male",
+  "category": "full_body",
+  "description": "Jumping jacks improve heart health and endurance."
+},
+  {
+    "videoResId" :"man_doing_jumping_jack_cardio_exercise" ,
+    "name": "Man doing jumping jack cardio exercise",
+    "gender": "male",
+    "category": "full_body",
     "description": "Jumping jacks improve heart health and endurance."
   }
 

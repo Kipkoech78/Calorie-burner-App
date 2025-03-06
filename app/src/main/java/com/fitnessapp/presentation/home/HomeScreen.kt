@@ -62,9 +62,7 @@ fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
                     color = colorResource(
                         id = R.color.body))
             }
-
         })
-
         Column(modifier = Modifier
             .verticalScroll(rememberScrollState())
         ) {
@@ -75,10 +73,8 @@ fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
                     onClick = {
                         navController.navigate("WorkoutListScreen/${card.category}")
                     },
-
                     imageVector = painterResource(id = card.image))
             }
         }
-       
     }
 }

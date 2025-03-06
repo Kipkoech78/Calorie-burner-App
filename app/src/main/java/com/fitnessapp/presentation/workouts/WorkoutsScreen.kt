@@ -130,13 +130,14 @@ fun loadWorkoutVideos(context: Context): List<WorkoutVideo> {
 fun WorkoutListScreen(
     viewModel: WorkoutViewModel = hiltViewModel(),
     category: String,
+    gender: String,
     navigateUp: ()-> Unit,
     navController: NavController
     // navigateToDet: (WorkoutVideo) -> Unit
 ) {
     val filteredWorkouts by viewModel.filteredWorkouts.collectAsState()
     LaunchedEffect(category) {
-        viewModel.filterWorkoutsByCategory(category)
+        viewModel.filterWorkoutsByCategory(category, gender)
     }
     if(filteredWorkouts.isNotEmpty()){
         Column(
@@ -196,7 +197,7 @@ fun WorkoutListScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = video.videoResId,
+                            text = video.name,
                             fontSize = 20.sp,
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
                            color = colorResource(id = R.color.text_title),

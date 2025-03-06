@@ -67,6 +67,7 @@ fun FitnessNavigator() {
             BottomNavItems(icon = R.drawable.ic_preferences, text = "Progress")
         )
     }
+    Log.d("Gender", gender)
     val navController = rememberNavController()
     val backStackState = navController.currentBackStackEntryAsState().value
     var selectedItem by rememberSaveable { mutableIntStateOf(0)}
@@ -86,60 +87,60 @@ fun FitnessNavigator() {
         CardItems(
             ratings = 4.5,
             gender = "male",
-            category = "lose_belly_fat",
+            category = "abs",
             desc = "Lose Belly Fat",
             image = R.drawable.abbsman
         ),
         CardItems(
             ratings = 4.5,
             gender = "male",
-            desc = "Keep Fit",
-            category = "keep_fit",
+            desc = "Full Body",
+            category = "full_body",
             image = R.drawable.boyarmmuscles
         ),
         CardItems(
             ratings = 4.5,
             gender = "male",
-            desc = "Six Pack Abs",
-            category = "six_pack_abs",
+            desc = "Upper Body",
+            category = "upper_body",
             image = R.drawable.sexymusculer
         ),
 
         CardItems(
             ratings = 4.5,
             gender = "male",
-            desc = "Rock Hard Abs",
-            category = "rock_hard_abs",
+            desc = "Lower Body",
+            category = "lower_body",
             image = R.drawable.abbsman
         ),
 
         CardItems(
             ratings = 4.5,
             gender = "female",
-            desc = "Six Pack Abs",
-            category = "six_pack_abs",
+            desc = "Lose Belly Fat",
+            category = "abs",
             image = R.drawable.femaleabbs
         ),
 
         CardItems(
             ratings = 4.5,
             gender = "female",
-            category = "keep_fit",
-            desc = "Keep Fit",
+            category = "full_body",
+            desc = "Full Body",
             image = R.drawable.closegirlfit
         ),
         CardItems(
             ratings = 4.5,
             gender = "female",
-            desc = "Get Shaped",
-            category = "get_shaped",
+            desc = "Upper Body",
+            category = "upper_body",
             image = R.drawable.fitnessgirl
         ),
         CardItems(
             ratings = 4.5,
             gender = "female",
-            desc = "Rock Hard Abs",
-            category = "six_pack_abs",
+            desc = "Lower Body",
+            category = "lower_body",
             image = R.drawable.womanabs1
         ),
     )
@@ -175,7 +176,7 @@ fun FitnessNavigator() {
             composable("WorkoutListScreen/{category}" ) { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category")?:""
                 // val viewModel: com.fitnessapp.presentation.workouts.WorkoutViewModel = hiltViewModel()
-                WorkoutListScreen(category = category, navController = navController, navigateUp = {
+                WorkoutListScreen(category = category,gender = gender, navController = navController, navigateUp = {
                     navController.navigate(Route.HomeScreen.route){
                         popUpTo(Route.WorkoutListScreen.route){
                             inclusive = true

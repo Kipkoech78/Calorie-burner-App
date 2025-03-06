@@ -66,7 +66,7 @@ fun AddCredentialsScreen(
         editor.apply() //commit changes
     }
     // radio Button
-    val radioOptions = listOf("Male", "Female")
+    val radioOptions = listOf("male", "female")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf<String?>(null) }
     Column(modifier = Modifier
         .fillMaxSize()

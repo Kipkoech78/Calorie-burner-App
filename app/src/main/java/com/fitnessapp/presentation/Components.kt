@@ -1,5 +1,6 @@
 package com.fitnessapp.presentation
 
+import android.content.Context
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -53,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.presentation.workouts.loadWorkoutVideos
+import com.fitnessapp.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -66,6 +68,9 @@ fun HomeCard(
     onClick: ()-> Unit,
     imageVector: Painter,
 ) {
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences(Constants.U_PREF, Context.MODE_PRIVATE)
+    val gender = sharedPreferences.getString(Constants.GENDER, "") ?: ""
     val scope = rememberCoroutineScope() // Create a coroutine scope
     var progress by remember{ mutableStateOf(0.1f)}
     var loadingState by remember { mutableStateOf(false) }
@@ -135,8 +140,6 @@ fun HomeCard(
                     )
             }
             Spacer(modifier = Modifier.height(5.dp))
-
-
 
     }
 }
