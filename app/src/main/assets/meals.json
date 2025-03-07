@@ -1,73 +1,93 @@
- [
-    {
+[
+  {
+    "days": {
       "day": "Day 1",
-      "meals": {
-        "breakfast": "Oatmeal with fruits",
-        "secondBreakfast": "Greek yogurt with honey",
-        "lunch": "Grilled chicken with vegetables",
-        "afternoonSnack": "Almonds and banana",
-        "dinner": "Salmon with quinoa"
-      }
+      "image": "day_one_meal.png"
     },
-    {
-      "day": "Day 2",
-      "meals": {
-        "breakfast": "Scrambled eggs with toast",
-        "secondBreakfast": "Smoothie with spinach and banana",
-        "lunch": "Beef stew with rice",
-        "afternoonSnack": "Apple with peanut butter",
-        "dinner": "Grilled tofu with roasted vegetables"
-      }
-    },
-    {
-      "day": "Day 3",
-      "meals": {
-        "breakfast": "Pancakes with honey",
-        "secondBreakfast": "Boiled eggs with avocado",
-        "lunch": "Vegetable stir-fry with noodles",
-        "afternoonSnack": "Yogurt with granola",
-        "dinner": "Baked fish with mashed potatoes"
-      }
-    },
-    {
-      "day": "Day 4",
-      "meals": {
-        "breakfast": "Fruit salad with nuts",
-        "secondBreakfast": "Whole grain toast with cheese",
-        "lunch": "Chicken curry with rice",
-        "afternoonSnack": "Hummus with carrots",
-        "dinner": "Lentil soup with bread"
-      }
-    },
-    {
-      "day": "Day 5",
-      "meals": {
-        "breakfast": "French toast with berries",
-        "secondBreakfast": "Cottage cheese with pineapple",
-        "lunch": "Spaghetti with tomato sauce",
-        "afternoonSnack": "Mixed nuts",
-        "dinner": "Grilled shrimp with salad"
-      }
-    },
-    {
-      "day": "Day 6",
-      "meals": {
-        "breakfast": "Smoothie bowl with seeds",
-        "secondBreakfast": "Omelet with spinach",
-        "lunch": "Vegetable soup with bread",
-        "afternoonSnack": "Dark chocolate with almonds",
-        "dinner": "Roasted chicken with sweet potatoes"
-      }
-    },
-    {
-      "day": "Day 7",
-      "meals": {
-        "breakfast": "Porridge with dates",
-        "secondBreakfast": "Banana with peanut butter",
-        "lunch": "Fish curry with rice",
-        "afternoonSnack": "Cheese with crackers",
-        "dinner": "Mushroom risotto"
-      }
+    "meals": {
+      "breakfast": { "type": "Break Fast", "whatToEat": "Oatmeal with fruits\nGreek yogurt with honey\nGrilled chicken with vegetables" },
+      "secondBreakfast": { "type": "Second BreakFast", "whatToEat": "Apple slices with peanut butter" },
+      "lunch": { "type": "Lunch", "whatToEat": "Grilled salmon with quinoa\nCaesar salad with chicken" },
+      "afternoonSnack": { "type": "Afternoon Snack", "whatToEat": "Granola bar\nMixed nuts" },
+      "dinner": { "type": "Dinner", "whatToEat": "Baked chicken with mashed potatoes\nSteamed broccoli" }
     }
-  ]
-
+  },
+  {
+    "days": {
+      "day": "Day 2",
+      "image": "day_two_meal.png"
+    },
+    "meals": {
+      "breakfast": { "type": "Break Fast", "whatToEat": "Scrambled eggs with toast\nSmoothie with spinach and banana\nBeef stew with rice" },
+      "secondBreakfast": { "type": "Second BreakFast", "whatToEat": "Berry smoothie with almond milk" },
+      "lunch": { "type": "Lunch", "whatToEat": "Chicken stir-fry with brown rice\nLentil soup" },
+      "afternoonSnack": { "type": "Afternoon Snack", "whatToEat": "Hummus with carrot sticks\nGreek yogurt with granola" },
+      "dinner": { "type": "Vegan", "whatToEat": "Tofu stir-fry with vegetables\nQuinoa and black bean salad" }
+    }
+  },
+  {
+    "days": {
+      "day": "Day 3",
+      "image": "day_three_meal.png"
+    },
+    "meals": {
+      "breakfast": { "type": "Sweet", "whatToEat": "Pancakes with honey\nBoiled eggs with avocado\nVegetable stir-fry with noodles" },
+      "secondBreakfast": { "type": "Second Breakfast", "whatToEat": "Protein shake with banana" },
+      "lunch": { "type": "Lunch", "whatToEat": "Chickpea salad\nGrilled cheese sandwich" },
+      "afternoonSnack": { "type": "Afternoon Snack", "whatToEat": "Chia pudding with mango\nAlmonds and walnuts" },
+      "dinner": { "type": "Dinner", "whatToEat": "Grilled shrimp with couscous\nSteamed asparagus" }
+    }
+  },
+  {
+    "days": {
+      "day": "Day 4",
+      "image": "day_three_meal.png"
+    },
+    "meals": {
+      "breakfast": { "type": "Fresh", "whatToEat": "Fruit salad with nuts\nWhole grain toast with cheese\nChicken curry with rice" },
+      "secondBreakfast": { "type": "Second Break Fast", "whatToEat": "Cottage cheese with berries" },
+      "lunch": { "type": "Lunch", "whatToEat": "Spicy lentil soup\nChili tofu with rice" },
+      "afternoonSnack": { "type": "Afternoon Snack", "whatToEat": "Rice cakes with almond butter\nCelery with hummus" },
+      "dinner": { "type": "Dinner", "whatToEat": "Shepherd’s pie\nMac and cheese" }
+    }
+  },
+  {
+    "days": {
+      "day": "Day 5",
+      "image": "day_five_meal.jpg"
+    },
+    "meals": {
+      "breakfast": { "type": "Break Fast", "whatToEat": "French toast with berries\nCottage cheese with pineapple\nSpaghetti with tomato sauce" },
+      "secondBreakfast": { "type": "Second BreakFast", "whatToEat": "Yogurt with honey and granola" },
+      "lunch": { "type": "lunch", "whatToEat": "Grilled cheese with tomato soup\nClub sandwich" },
+      "afternoonSnack": { "type": "Afternoon Snack", "whatToEat": "Trail mix\nBoiled eggs" },
+      "dinner": { "type": "Seafood", "whatToEat": "Baked cod with lemon butter sauce\nGarlic roasted potatoes" }
+    }
+  },
+  {
+    "days": {
+      "day": "Day 6",
+      "image": "baby_food.png"
+    },
+    "meals": {
+      "breakfast": { "type": "BreakFast", "whatToEat": "Smoothie bowl with seeds\nOmelet with spinach\nVegetable soup with bread" },
+      "secondBreakfast": { "type": "Second Breakfast", "whatToEat": "Boiled eggs with avocado toast" },
+      "lunch": { "type": "Lunch", "whatToEat": "Grilled chicken wrap\nMushroom risotto" },
+      "afternoonSnack": { "type": "After noon Snack", "whatToEat": "Chocolate-covered almonds\nPeanut butter banana toast" },
+      "dinner": { "type": "Dinner", "whatToEat": "Grilled steak with roasted vegetables\nQuinoa salad" }
+    }
+  },
+  {
+    "days": {
+      "day": "Day 7",
+      "image": "fried_chicken.jpg"
+    },
+    "meals": {
+      "breakfast": { "type": "Break Fast", "whatToEat": "Porridge with dates\nBanana with peanut butter\nFish curry with rice" },
+      "secondBreakfast": { "type": "Second Break Fast", "whatToEat": "Cereal with milk" },
+      "lunch": { "type": "Lunch", "whatToEat": "Tuna salad sandwich\nRoasted sweet potatoes" },
+      "afternoonSnack": { "type": "After noon Snack", "whatToEat": "Cheese and crackers\nDried fruits" },
+      "dinner": { "type": "Dinner", "whatToEat": "Baked chicken parmesan\nSteamed green beans" }
+    }
+  }
+]

@@ -24,13 +24,21 @@ data class Meal(
 ): Parcelable
 
 //data class MealPlan(val days: List<DayMeal>)
-data class DayMeal(val day: String,
+data class DayMeal(val days: Day,
                    val meals: Meals
 )
 data class Meals(
-    val breakfast: String,
-    val secondBreakfast: String,
-    val lunch: String,
-    val afternoonSnack: String,
-    val dinner: String
+    val breakfast: MealString,
+    val secondBreakfast: MealString,
+    val lunch: MealString,
+    val afternoonSnack: MealString,
+    val dinner: MealString
+)
+data class Day(
+    val day: String,
+    val image: String
+)
+data class MealString(
+    val type: String,
+    val whatToEat: String
 )
