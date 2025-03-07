@@ -41,6 +41,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fitnessapp.R
 import com.fitnessapp.models.DayMeal
+import com.fitnessapp.models.Meals
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.presentation.dietetics.DieteticsScreen
 import com.fitnessapp.presentation.dashBoard.DashboardScreen
@@ -189,26 +190,20 @@ fun FitnessNavigator() {
                 } )
 
             }
-//            composable("DietDetailsScreen/{meal}"){navBackStackEntry ->
-//                val mealContent = navBackStackEntry.arguments?.getString("meals")
-//                val meal = mealContent.let { Gson().fromJson(it, DayMeal::class.java) }
-//                DietDetailsScreen(mealContent = meal )
-//
-//            }
-            composable(route = Route.DietDetailsScreen.route){
-               // val viewModel: DetailsViewModel = hiltViewModel()
+            composable("DietDetailsScreen/{meal}"){navBackStackEntry ->
+                val mealContent = navBackStackEntry.arguments?.getString("meal")
+                val meal = mealContent.let { Gson().fromJson(it, Meals::class.java) }
+                Log.d("data", "$meal")
+                DietDetailsScreen(mealContent = meal , navigateUp = {
+                    //Todo
+                } )
 
-                navController.previousBackStackEntry?.savedStateHandle?.get<DayMeal>("meal")?.let {
-                        meal ->
-                    DietDetailsScreen(mealContent = meal,
-                        navigateUp = {navController.navigateUp()})
-                }
             }
+
             composable(Route.DieteticsScreen.route){
                 val viewModel: DieteticsViewModel = hiltViewModel()
                 val meals = viewModel.daylyMeals.collectAsState()
-                DieteticsScreen(meals = meals, navigateToDet = {//TODO
-                } )
+                DieteticsScreen(meals = meals, navigateToDet =navController )
             }
             //
             composable("WorkoutDetailScreen/{video}"){ backStackEntry ->

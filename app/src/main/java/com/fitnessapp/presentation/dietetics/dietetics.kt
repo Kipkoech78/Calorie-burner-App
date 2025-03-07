@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.Navigator
 import com.fitnessapp.models.DayMeal
 import com.google.gson.Gson
 
@@ -32,7 +33,7 @@ fun DieteticsScreen(
     //meals: LazyPagingItems<Meal>,
     meals: State<List<DayMeal>>,
     viewModel: DieteticsViewModel = hiltViewModel(),
-    navigateToDet: () -> Unit
+    navigateToDet: NavController
 
                    // navigateToDetails: (Meal) -> Unit,
                     ) {
@@ -46,9 +47,10 @@ fun DieteticsScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(meals.value){ meal ->
-                DayCard(meal.day, onClick = {
-                    navigateToDet()
+            items(meals.value){ meals ->
+                DayCard(meals.day, onClick = {
+                    val meal = Uri.encode(Gson().toJson(meals.meals))
+                    navigateToDet.navigate("DietDetailsScreen/$meal")
                 })
 
             }
