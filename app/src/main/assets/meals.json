@@ -1,0 +1,73 @@
+ [
+    {
+      "day": "Day 1",
+      "meals": {
+        "breakfast": "Oatmeal with fruits",
+        "secondBreakfast": "Greek yogurt with honey",
+        "lunch": "Grilled chicken with vegetables",
+        "afternoonSnack": "Almonds and banana",
+        "dinner": "Salmon with quinoa"
+      }
+    },
+    {
+      "day": "Day 2",
+      "meals": {
+        "breakfast": "Scrambled eggs with toast",
+        "secondBreakfast": "Smoothie with spinach and banana",
+        "lunch": "Beef stew with rice",
+        "afternoonSnack": "Apple with peanut butter",
+        "dinner": "Grilled tofu with roasted vegetables"
+      }
+    },
+    {
+      "day": "Day 3",
+      "meals": {
+        "breakfast": "Pancakes with honey",
+        "secondBreakfast": "Boiled eggs with avocado",
+        "lunch": "Vegetable stir-fry with noodles",
+        "afternoonSnack": "Yogurt with granola",
+        "dinner": "Baked fish with mashed potatoes"
+      }
+    },
+    {
+      "day": "Day 4",
+      "meals": {
+        "breakfast": "Fruit salad with nuts",
+        "secondBreakfast": "Whole grain toast with cheese",
+        "lunch": "Chicken curry with rice",
+        "afternoonSnack": "Hummus with carrots",
+        "dinner": "Lentil soup with bread"
+      }
+    },
+    {
+      "day": "Day 5",
+      "meals": {
+        "breakfast": "French toast with berries",
+        "secondBreakfast": "Cottage cheese with pineapple",
+        "lunch": "Spaghetti with tomato sauce",
+        "afternoonSnack": "Mixed nuts",
+        "dinner": "Grilled shrimp with salad"
+      }
+    },
+    {
+      "day": "Day 6",
+      "meals": {
+        "breakfast": "Smoothie bowl with seeds",
+        "secondBreakfast": "Omelet with spinach",
+        "lunch": "Vegetable soup with bread",
+        "afternoonSnack": "Dark chocolate with almonds",
+        "dinner": "Roasted chicken with sweet potatoes"
+      }
+    },
+    {
+      "day": "Day 7",
+      "meals": {
+        "breakfast": "Porridge with dates",
+        "secondBreakfast": "Banana with peanut butter",
+        "lunch": "Fish curry with rice",
+        "afternoonSnack": "Cheese with crackers",
+        "dinner": "Mushroom risotto"
+      }
+    }
+  ]
+

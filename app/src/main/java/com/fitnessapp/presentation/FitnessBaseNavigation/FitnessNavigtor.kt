@@ -3,6 +3,7 @@ package com.fitnessapp.presentation.FitnessBaseNavigation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +21,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -37,12 +39,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.fitnessapp.R
+import com.fitnessapp.models.DayMeal
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.presentation.dietetics.DieteticsScreen
 import com.fitnessapp.presentation.dashBoard.DashboardScreen
 import com.fitnessapp.presentation.dashBoard.WorkoutsProgressViewModel
+import com.fitnessapp.presentation.dietetics.DietDetailsScreen
 import com.fitnessapp.presentation.dietetics.DieteticsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
@@ -186,10 +189,28 @@ fun FitnessNavigator() {
                 } )
 
             }
+//            composable("DietDetailsScreen/{meal}"){navBackStackEntry ->
+//                val mealContent = navBackStackEntry.arguments?.getString("meals")
+//                val meal = mealContent.let { Gson().fromJson(it, DayMeal::class.java) }
+//                DietDetailsScreen(mealContent = meal )
+//
+//            }
+            composable(route = Route.DietDetailsScreen.route){
+               // val viewModel: DetailsViewModel = hiltViewModel()
+
+                navController.previousBackStackEntry?.savedStateHandle?.get<DayMeal>("meal")?.let {
+                        meal ->
+                    DietDetailsScreen(mealContent = meal,
+                        navigateUp = {navController.navigateUp()})
+                }
+            }
             composable(Route.DieteticsScreen.route){
                 val viewModel: DieteticsViewModel = hiltViewModel()
-                val meals = viewModel.meals.collectAsLazyPagingItems()
-                DieteticsScreen(meals = meals)
+                val meals = viewModel.daylyMeals.collectAsState()
+                DieteticsScreen(meals = meals, navigateToDet = { meal ->
+                    navigateToDetails(navController = navController, meal =meal)
+
+                } )
             }
             //
             composable("WorkoutDetailScreen/{video}"){ backStackEntry ->
@@ -204,6 +225,7 @@ fun FitnessNavigator() {
                     event = viewModel::onEvent
                 )
             }
+
             composable(Route.ProgressScreen.route){
                 val viewModel: WorkoutsProgressViewModel = hiltViewModel()
                 DashboardScreen( viewModel )
@@ -256,3 +278,12 @@ data class BottomNavItems(
     @DrawableRes val icon: Int,
     val text: String
 )
+
+
+//passing object
+private fun navigateToDetails(navController: NavController, meal: DayMeal){
+    navController.currentBackStackEntry?.savedStateHandle?.set("meal", meal)
+    navController.navigate(
+        route = Route.DietDetailsScreen.route
+    )
+}

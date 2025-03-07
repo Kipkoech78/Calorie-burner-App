@@ -17,3 +17,8 @@ interface WorkoutsProgressDao {
     @Query("UPDATE WorkoutsProgress SET duration = duration + :additionalDuration WHERE date = :date")
     suspend fun updateWorkoutDuration(date: String, additionalDuration: Int)
 }
+
+@Dao
+interface MealsDao {
+
+}

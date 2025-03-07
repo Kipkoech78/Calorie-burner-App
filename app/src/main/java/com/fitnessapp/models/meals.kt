@@ -23,3 +23,14 @@ data class Meal(
     val strYoutube: String?
 ): Parcelable
 
+//data class MealPlan(val days: List<DayMeal>)
+data class DayMeal(val day: String,
+                   val meals: Meals
+)
+data class Meals(
+    val breakfast: String,
+    val secondBreakfast: String,
+    val lunch: String,
+    val afternoonSnack: String,
+    val dinner: String
+)
