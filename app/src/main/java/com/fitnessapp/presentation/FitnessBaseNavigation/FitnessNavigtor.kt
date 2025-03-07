@@ -207,9 +207,7 @@ fun FitnessNavigator() {
             composable(Route.DieteticsScreen.route){
                 val viewModel: DieteticsViewModel = hiltViewModel()
                 val meals = viewModel.daylyMeals.collectAsState()
-                DieteticsScreen(meals = meals, navigateToDet = { meal ->
-                    navigateToDetails(navController = navController, meal =meal)
-
+                DieteticsScreen(meals = meals, navigateToDet = {//TODO
                 } )
             }
             //
