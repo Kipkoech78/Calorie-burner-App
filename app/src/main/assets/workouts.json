@@ -1,256 +1,618 @@
 [
-  {
-    "videoResId": "womanjump",
-    "name": "Woman Jump",
-    "category": "six_pack_abs",
-    "gender": "female",
-    "description": "Squats help build lower body muscles."
-  },
+
   {
     "videoResId": "woman_situps",
-    "name": "woman Situps",
+    "name": "sit-ups",
     "category": "abs",
     "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Regular sit-ups can increase the endurance of your abdominal muscles, allowing you to perform activities for longer periods without fatigue."
   },
-  {
-    "videoResId": "frogjumpwoman",
-    "name":"Women Frog Jump",
-    "category": "lower_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "womandoing_sumo_squat_jump",
-    "name": "Woman Doing Sumo squat jump",
-    "category": "full_body",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "bent_knee_hip_woman_female_training_women",
-    "name": "bent knee hip woman female training ",
-    "category": "lower_body",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
+
+
   {
     "videoResId": "woman_doing_flutter_kicks",
-    "name": "woman doing flutter Kicks",
+    "name": "flutter kicks",
     "category": "abs",
     "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Flutter kicks are a core exercise that primarily targets the lower abdominal muscles and hip flexors."
   },
   {
     "videoResId": "woman_doing_mountain_climber",
     "category": "abs",
-    "name": "woman doing mountain climber",
+    "name": "mountain climber",
     "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Mountain climbers are a dynamic excercise that combines cardio and core work."
   },
   {
     "videoResId": "crunch_exercise_girl",
     "category": "abs",
-    "name": "",
+    "name": "crunch",
     "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "donkey_kicks_pulses_13568900_11124450",
-    "name": "",
-    "category": "lower_body",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "elbow_to_knee_crunch_13750151_11124446",
-    "name": "",
-    "category": "lower_body",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "frogjumpwoman",
-    "name": "",
-    "category": "lower_body",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "glute_bridge_exercise_13750152_11124447",
-    "name": "",
-    "category": "lower_body",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "knee_push_up_exercise_13568907_11124455",
-    "category": "upper_body",
-    "name": "",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "leg_pull_low_plank_13568919_11124466",
-    "category": "lower_body",
-    "name": "",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "losebelly",
-    "category": "lower_body",
-    "name": "",
-    "gender": "female",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "man_doing_ab_rollout",
-    "name": "",
-    "category": "abs",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-
-  },
-  {
-    "videoResId": "man_doing_narrow_squat_exercise_for_legs",
-    "name": "",
-    "category": "lower_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId": "man_doing_back_extension_exercise_for_glute",
-    "name": "",
-    "category": "lower_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" : "man_doing_back_to_forward_lunge_exercise" ,
-    "name": "",
-    "category": "lower_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_bench_pistol_squat" ,
-    "name": "",
-    "category": "lower_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_bent_knee_hip_raise_exercise_for_abs" ,
-    "name": "",
-    "category": "abs",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Crunches are a classic abdominal exercise that effectively targets the rectus abdominis, the \"six-pack\" muscles."
   },
 
   {
-    "videoResId" :"man_doing_body_saw_exercise_for_abs_and_shoulders" ,
-    "name": "",
-    "category": "upper_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_bodyweight_good_morning_exercise_for_legs_and_lower_back" ,
-    "name": "",
-    "category": "lower_body",
-    "gender": "male",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_bodyweight_swing_cardio_exercise_12894513_10469920" ,
-    "name": "",
-    "gender": "male",
-    "category": "full_body",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_bodyweight_kneeling_tricep_extension_exercise_for_arm" ,
-    "name": "",
-    "gender": "male",
-    "category": "upper_body",
-    "description": "Jumping jacks improve heart health and endurance"
-  },
-  {
-    "videoResId" :"man_doing_burpee_cardio_exercise" ,
-    "name": "",
-    "gender": "male",
-    "category": "full_body",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_calf_raise_exercise_for_legs" ,
-    "name": "man doing calf raise",
-    "gender": "male",
-    "category": "lower_body",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_captains_chair_knee_raise_exercise_for_abs_12894526_10469933",
-    "name": "man doing captain chair knee raise exercise for Abs",
-    "gender": "male",
+    "videoResId": "man_doing_sit_ups",
     "category": "abs",
-    "description": "Jumping jacks improve heart health and endurance"
-  },
-  {
-    "videoResId" :"man_doing_captains_chair_leg_raise_exercise_for_abs_12894527_10469934",
-    "name": "man doing captain chair leg raise exercise for abs",
+    "name": "sit-ups",
     "gender": "male",
+    "description": "Regular sit-ups can increase the endurance of your abdominal muscles, allowing you to perform activities for longer periods without fatigue."
+  },
+
+  {
+    "videoResId": "man_doing_flutter_kicks",
     "category": "abs",
-    "description": "Jumping jacks improve heart health and endurance."
+    "name": "flutter kicks",
+    "gender": "male",
+    "description": "Flutter kicks are a core exercise that primarily targets the lower abdominal muscles and hip flexors."
   },
   {
-    "videoResId" :"man_doing_chest_dip_exercise_for_chest" ,
-    "name": "man doing chest dip exercise",
+    "videoResId": "man_doing_mountain_climber",
+    "name": "mountain climbers",
+    "category": "abs",
     "gender": "male",
-    "category": "upper_body",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_close_grip_pull_up_exercise_for_back" ,
-    "name": "man doing close grip pull up exercise for back",
-    "gender": "male",
-    "category": "upper_body",
-    "description": "Jumping jacks improve heart health and endurance."
-  },
-  {
-    "videoResId" :"man_doing_close_push_up_exercise_for_chest" ,
-    "name": "man doing close push up exercise",
-    "gender": "male",
-    "category": "upper_body",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Mountain climbers are a dynamic excercise that combines cardio and core work."
+
   },
   {
     "videoResId" :"man_doing_side_crunche_hip_raise_exercise_for_oblique_12948501_10520810" ,
-    "name": "man doing side crunch hip raise exercise",
+    "name": "side crunch ",
     "gender": "male",
     "category": "abs",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Crunches are a classic abdominal exercise that effectively targets the rectus abdominis, the \"six-pack\" muscles.The side crunches target the obliques muscles."
   },
   {
-    "videoResId" :"man_doing_sumo_squat_jumps_cardio" ,
-    "name": "man doing sumo squat jumps cardio",
+    "videoResId" :"man_doing_bicycle_crunch" ,
+    "name": "bicycle crunch",
+    "gender": "male",
+    "category": "abs",
+    "description": "Bicycle crunches are a dynamic core exercise that effectively targets multiple abdominal muscle groups."
+  },
+
+  {
+    "videoResId": "man_doing_ab_rollout",
+    "name": "ab rollout",
+    "category": "abs",
+    "gender": "male",
+    "description": "The ab rollout is a challenging and highly effective core exercise that targets multiple muscle groups."
+
+  },
+
+  {
+    "videoResId": "man_doing_plank_shoulder_tap",
+    "name": "plank shoulder taps",
+    "category": "abs",
+    "gender": "male",
+    "description": "The plank-shoulder tap is a dynamic core exercise that combines the stability of a plank with the added challenge of shoulder taps.It works multiple muscle groups, including your core and shoulders."
+
+  },
+
+  {
+    "videoResId": "man_doing_standing_side_crunches",
+    "name": "standing side crunches",
+    "category": "abs",
+    "gender": "male",
+    "description": "Standing side crunches are a great exercise for targeting the obliques, the muscles on the sides of your abdomen. They help to tone your waistline and improve core stability."
+
+  },
+
+  {
+    "videoResId": "man_doing_wipers",
+    "name": "wipers",
+    "category": "abs",
+    "gender": "male",
+    "description": "Wipers is a challenging core exercise that primarily targets the obliques, but also engages the rectus abdominis and lower back muscles."
+  },
+
+  {
+    "videoResId": "man_doing_upward_facing_dog_stretching",
+    "name": "stretching",
+    "category": "abs",
+    "gender": "male",
+    "description": "A core stretching workout focuses on lengthening and relaxing the muscles surrounding your torso, improving flexibility and reducing tension."
+  },
+
+  {
+    "videoResId" :"man_doing_bench_pistol_squat" ,
+    "name": "bench pistol squat",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "The box pistol squat is a modified version of the pistol squat, designed to make the exercise more accessible while still providing significant strength and stability benefits."
+  },
+
+  {
+    "videoResId": "man_doing_bulgarian_split_squat",
+    "name": "bulgarian split squat",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "The Bulgarian split squat is a challenging single-leg exercise that offers numerous benefits such as building unilateral strength (strength in one leg at a time), which helps correct muscle imbalances,Improves balance and stability, Increases lower body strength and muscle growth."
+  },
+
+  {
+    "videoResId" : "man_doing_back_to_forward_lunge_exercise" ,
+    "name": "forward lunge",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "A forward lunge is a fundamental lower-body exercise that targets several key muscle groups of the lower body improving balance and stability and leading to growth of the muscles"
+  },
+
+  {
+    "videoResId": "man_doing_reverse_lunge_jump_knee_drive",
+    "name": "lunge knee drive",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "The lunge knee drive is a dynamic exercise that combines a traditional lunge with a powerful knee lift which not only leads to leg muscle growth but also increases explosive power."
+  },
+
+  {
+    "videoResId": "man_doing_side_lunge",
+    "name": "side lunge",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "A side lunge, also known as a lateral lunge, is a lower body exercise that targets several key leg muscles which helps in muscle growth and improves the muscles used in lateral movement."
+  },
+
+  {
+    "videoResId": "man_doing_narrow_squat_exercise_for_legs",
+    "name": "squats",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "A squat is a fundamental strength training exercise where you lower your hips from a standing position and then return to standing.It is a powerful compound work out that strengthens the lower body,targets the core ,improves stability and balance and also contributes to endurance and burning of calories."
+  },
+
+  {
+    "videoResId": "man_doing_dumbbell_hip_thrust_exercise",
+    "name": "dumbbell hip thrust",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "The hip thrust is a popular exercise primarily targeting the gluteal muscles,Leads to increase in strength and size of the gluteal muscles as a whole,"
+  },
+
+  {
+    "videoResId": "man_doing_seated_dumbbell_calf_raise",
+    "name": "dumbbell seated calf raise",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "The seated calf raise is a targeted exercise designed to strengthen the calf muscles, particularly the soleus muscle.."
+  },
+
+  {
+    "videoResId": "man_doing_dumbbell_good_morning",
+    "name": "squats",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "This work out targets the gluteal muscles as well as the hamstrings leading to increased power and size in those muscles.."
+  },
+
+  {
+    "videoResId": "man_doing_single_leg_dumbbell_deadlift",
+    "name": "dumbbell single leg dead-lift",
+    "category": "lower_body",
+    "gender": "male",
+    "description": "A single-leg dead-lift is a variation of the traditional dead-lift that focuses on unilateral (one-sided) strength and stability in the lower body muscles like the glutes and hamstrings and partly the lower back."
+  },
+
+
+
+
+  {
+    "videoResId" :"man_doing_bent_knees_bench_dip" ,
+    "name": "bent knees bench dip",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "The bent-knee bench triceps dip is a bodyweight exercise that primarily targets the triceps muscles on the back of your upper arms."
+  },
+
+  {
+    "videoResId" :"man_doing_incline_push_up" ,
+    "name": "incline push up",
+    "category": "upper_body",
+    "gender": "male",
+    "description": " An incline push-up is a modified version of a standard push-up where your hands are placed on an elevated surface, such as a bench, box, or sturdy platform.It builds upper body strength and helps in building muscles especially around the chest."
+  },
+
+  {
+    "videoResId" :"man_doing_standing_dumbbell_lateral_raise" ,
+    "name": "dumbbell lateral raises",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "The shoulder lateral raise is an isolation exercise primarily targeting the lateral (medial) head of the deltoid muscle, which contributes to shoulder width."
+  },
+
+  {
+    "videoResId" :"man_doing_shoulder_external_rotation" ,
+    "name": "shoulder rotation",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "Shoulder rotation workouts focus on strengthening and improving the range of motion of the rotator cuff muscles, which are crucial for shoulder stability and function.."
+  },
+
+  {
+    "videoResId" :"man_doing_alternating_renegade_row" ,
+    "name": "dumbbell alternate renegade rows",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "The dumbbell alternating renegade row is a challenging full-body exercise that combines a plank with a rowing motion targeting the back muscles as well as the ab muscle."
+  },
+
+  {
+    "videoResId" :"man_doing_dumbbell_bent_over_row" ,
+    "name": "dumbbell bent over rows",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "The dumbbell bent-over row is a compound exercise that primarily targets the muscles in your back strengthens your back.This work out improves posture, and enhances overall upper body strength."
+  },
+
+  {
+    "videoResId" :"man_doing_hammer_grip_dumbbell_bench_press" ,
+    "name": "hammer grip dumbbell bench press",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "The dumbbell hammer grip bench press is a variation of the classic bench press that utilizes dumbbells and a neutral (hammer) grip, where your palms face each other,this targets both the shoulder and chest muscles.."
+  },
+
+  {
+    "videoResId" :"man_doing_alternating_dumbbell_hammer_curl" ,
+    "name": "alternating hammer curls",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "Dumbbell hammer curls are a strength training exercise that primarily target the biceps brachii, but with a greater emphasis on the brachialis and brachioradialis muscles in the forearms."
+  },
+
+  {
+    "videoResId" :"man_doing_seated_dumbbell_overhead_tricep_extension" ,
+    "name": "seated overhead dumbbell tricep extention",
+    "category": "upper_body",
+    "gender": "male",
+    "description": "The dumbbell seated triceps extension is an isolation exercise specifically targeting the triceps muscles, located on the back of your upper arm.It helps to build strength and size of the triceps and also leads to increase in strenth of other pressing work outs."
+  },
+
+
+  {
+    "videoResId" :"man_doing_burpee_cardio_exercise" ,
+    "name": "burpees",
     "gender": "male",
     "category": "full_body",
-    "description": "Jumping jacks improve heart health and endurance."
-  }, {
-  "videoResId" :"man_doing_crab_toe_touches_cardio_exercise" ,
-  "name": "man doing crab toe touches cardio exercise",
-  "gender": "male",
-  "category": "full_body",
-  "description": "Jumping jacks improve heart health and endurance."
-},
+    "description": "A burpee is a full-body exercise that combines several movements into one, providing a comprehensive workout."
+  },
   {
     "videoResId" :"man_doing_jumping_jack_cardio_exercise" ,
-    "name": "Man doing jumping jack cardio exercise",
+    "name": "jumping jacks",
     "gender": "male",
     "category": "full_body",
-    "description": "Jumping jacks improve heart health and endurance."
+    "description": "Jumping jacks improve heart health and endurance.It is a simple, full-body exercise that's a classic part of warm-ups and cardio routines."
+
+  },
+
+  {
+    "videoResId": "man_doing_crab_toe_touches_cardio_exercise",
+    "name": "crab toe touches cardio ",
+    "gender": "male",
+    "category": "full_body",
+    "description": "Crab toe touches are a dynamic, bodyweight exercise that effectively combines cardio and strength training.This work out increases intensity and challenge different muscle groups."
+  },
+
+  {
+    "videoResId": "man_doing_plank_frog_jump",
+    "name": "plank frog jump",
+    "gender": "male",
+    "category": "full_body",
+    "description": "The plank frog jump is a dynamic exercise that combines a plank position with a frog jump movement, offering a full-body workout."
+  },
+
+  {
+    "videoResId" :"man_doing_sumo_squat_jumps_cardio" ,
+    "name": "sumo squat jumps ",
+    "gender": "male",
+    "category": "full_body",
+    "description": "Sumo squat jumps are a dynamic, compound exercise that combines the muscle-building benefits of a sumo squat with the explosive power of a jump.This work out targets the lower body muscles and the cardiovascular system leading to their improvement and increased explosive power and lower body strength."
+  },
+
+  {
+    "videoResId" :"man_doing_dumbbell_squat_overhead_press" ,
+    "name": "dumbbell overhead press",
+    "gender": "male",
+    "category": "full_body",
+    "description": "The dumbbell squat overhead press is a compound exercise that combines a squat with an overhead press, effectively working multiple muscle groups simultaneously."
+  },
+
+  {
+    "videoResId" :"man_doing_dumbbell_swing" ,
+    "name": "dumbbell swing",
+    "gender": "male",
+    "category": "full_body",
+    "description": "The dumbbell swing is a dynamic exercise that primarily targets the muscles of the posterior chain, including the glutes, hamstrings, and lower back and also a bit of the upper body especially the arms."
+  },
+
+  {
+    "videoResId" :"man_doing_downward_facing_dog_stretching" ,
+    "name": "stretching",
+    "gender": "male",
+    "category": "full_body",
+    "description": " A full-body stretching workout involves a series of exercises designed to improve flexibility and range of motion across all major muscle groups."
+  },
+
+
+  {
+    "videoResId" :"man_doing_close_grip_pull_up_exercise_for_back" ,
+    "name": "pull up ",
+    "gender": "male",
+    "category": "upper_body",
+    "description": "A pull-up workout is a strength training exercise that primarily targets the muscles in your back and arms.It improves upper body strength, grip strength and posture."
+  },
+  {
+    "videoResId" :"man_doing_close_push_up_exercise_for_chest" ,
+    "name": " push up ",
+    "gender": "male",
+    "category": "upper_body",
+    "description": "A close-grip push-up, also known as a diamond push-up or triceps push-up, is a variation of the standard push-up that emphasizes the triceps and inner chest muscles.It contributes to overall chest growth and triceps.."
+  },
+
+  {
+    "videoResId" :"man_doing_bench_kneeling_lat_stretching" ,
+    "name": "lat stretch",
+    "category": "upper_body",
+    "gender": "male",
+    "description": " A bent knee lat stretch is a way to safely and effectively increase flexibility in your back muscles."
+  },
+
+  {
+    "videoResId" :"woman_doing_walking_burpee" ,
+    "name": "walking burpee",
+    "gender": "female",
+    "category": "full_body",
+    "description": "The walking burpee offers a less intense but still effective alternative to the standard burpee, making it a versatile exercise for various fitness levels.."
+
+  },
+
+  {
+    "videoResId" :"woman_doing_bent_knees_bench_dip" ,
+    "name": "bent knees bench dip",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "The bent-knee bench triceps dip is a bodyweight exercise that primarily targets the triceps muscles on the back of your upper arms."
+
+  },
+  {
+    "videoResId" :"woman_doing_bicycle_crunch" ,
+    "name": "bicycle crunch",
+    "gender": "female",
+    "category": "abs",
+    "description": "Bicycle crunches are a dynamic core exercise that effectively targets multiple abdominal muscle groups."
+
+  },
+  {
+    "videoResId" :"woman_doing_box_pistol_squats" ,
+    "name": "box pistol squats",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "The box pistol squat is a modified version of the pistol squat, designed to make the exercise more accessible while still providing significant strength and stability benefits."
+
+  },
+  {
+    "videoResId" :"woman_doing_bulgarian_split_squats" ,
+    "name": "bulgarian split squat",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "The Bulgarian split squat is a challenging single-leg exercise that offers numerous benefits such as building unilateral strength (strength in one leg at a time), which helps correct muscle imbalances,Improves balance and stability, Increases lower body strength and muscle growth."
+
+  },
+  {
+    "videoResId" :"woman_doing_forward_lunges" ,
+    "name": "forward lunges",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "A forward lunge is a fundamental lower-body exercise that targets several key muscle groups of the lower body improving balance and stability and leading to growth of the muscles."
+
+  },
+  {
+    "videoResId" :"woman_doing_jumping_jacks" ,
+    "name": " jumping jacks",
+    "gender": "female",
+    "category": "full_body",
+    "description": "Jumping jacks improve heart health and endurance.It is a simple, full-body exercise that's a classic part of warm-ups and cardio routines"
+
+  },
+  {
+    "videoResId" :"woman_doing_knee_push_up" ,
+    "name": "knee push up",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "A knee push-up is a modified version of a traditional push-up, designed to be easier, making it ideal for beginners or those who need to reduce the intensity of the exercise and it targets the chest muscles."
+
+  },
+  {
+    "videoResId" :"woman_doing_lunge_jump_knee_drive" ,
+    "name": "lunge knee drive",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "The lunge knee drive is a dynamic exercise that combines a traditional lunge with a powerful knee lift which not only leads to leg muscle growth but also increases explosive power."
+
+  },
+  {
+    "videoResId" :"woman_doing_modified_burpees" ,
+    "name": "modified burpees",
+    "gender": "female",
+    "category": "full_body",
+    "description": "A burpee is a full-body exercise that combines several movements into one, providing a comprehensive workout."
+
+  },
+  {
+    "videoResId" :"woman_doing_plank_frog_jump" ,
+    "name": "plank frog jump",
+    "gender": "female",
+    "category": "full_body",
+    "description": "The plank frog jump is a dynamic exercise that combines a plank position with a frog jump movement, offering a full-body workout."
+
+  },
+  {
+    "videoResId" :"woman_doing_shoulder_lateral_raises" ,
+    "name": "shoulder lateral raises",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "The shoulder lateral raise is an isolation exercise primarily targeting the lateral (medial) head of the deltoid muscle, which contributes to shoulder width."
+
+  },
+  {
+    "videoResId" :"woman_doing_shoulder_rotation" ,
+    "name": "shoulder rotation",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "Shoulder rotation workouts focus on strengthening and improving the range of motion of the rotator cuff muscles, which are crucial for shoulder stability and function."
+  },
+
+  {
+    "videoResId" :"woman_doing_side_lunges" ,
+    "name": "side lunge",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "A side lunge, also known as a lateral lunge, is a lower body exercise that targets several key leg muscles which helps in muscle growth and improves the muscles used in lateral movement."
+  },
+
+  {
+    "videoResId" :"woman_doing_squats" ,
+    "name": "squats",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "A squat is a fundamental strength training exercise where you lower your hips from a standing position and then return to standing.It is a powerful compound work out that strengthens the lower body,targets the core ,improves stability and balance and also contributes to burning of calories."
+  },
+
+  {
+    "videoResId" :"woman_doing_toy_soldier_stretching" ,
+    "name": "toy soldier stretching",
+    "gender": "female",
+    "category": "full_body",
+    "description": "The toy soldier exercise is a dynamic stretch that primarily targets the hamstrings, but also engages other lower body muscles and back muscles."
+  },
+  {
+    "videoResId" :"woman_doing_barbell_ab_rollout" ,
+    "name": "ab rollout",
+    "gender": "female",
+    "category": "abs",
+    "description": "The ab rollout is a challenging and highly effective core exercise that targets multiple muscle groups."
+
+  },
+  {
+    "videoResId" :"woman_doing_plank_shoulder_tap" ,
+    "name": "plank shoulder tap",
+    "gender": "female",
+    "category": "abs",
+    "description": "The plank-shoulder tap is a dynamic core exercise that combines the stability of a plank with the added challenge of shoulder taps.It works multiple muscle groups, including your core and shoulders."
+
+  },
+  {
+    "videoResId" :"woman_doing_standing_side_crunches" ,
+    "name": " standing side crunches",
+    "gender": "female",
+    "category": "abs",
+    "description": "Standing side crunches are a great exercise for targeting the obliques, the muscles on the sides of your abdomen. They help to tone your waistline and improve core stability."
+
+  },
+  {
+    "videoResId" :"woman_doing_wipers" ,
+    "name": "wipers",
+    "gender": "female",
+    "category": "abs",
+    "description": "Wipers is a challenging core exercise that primarily targets the obliques, but also engages the rectus abdominis and lower back muscles."
+
+  },
+  {
+    "videoResId" :"woman_doing_stretching" ,
+    "name": "stretching",
+    "gender": "female",
+    "category": "abs",
+    "description": "A core stretching workout focuses on lengthening and relaxing the muscles surrounding your torso, improving flexibility and reducing tension."
+
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_squat_overhead" ,
+    "name": "dumbbell squat overhead",
+    "gender": "female",
+    "category": "full_body",
+    "description": "The dumbbell squat overhead press is a compound exercise that combines a squat with an overhead press, effectively working multiple muscle groups simultaneously."
+
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_swing" ,
+    "name": "dumbbell swing",
+    "gender": "female",
+    "category": "full_body",
+    "description": "The dumbbell swing is a dynamic exercise that primarily targets the muscles of the posterior chain, including the glutes, hamstrings, and lower back and also a bit of the upper body especially the arms."
+
+  },
+  {
+    "videoResId" :"woman_doing_downward_dog_stretch" ,
+    "name": "stretching",
+    "gender": "female",
+    "category": "full_body",
+    "description": "A full-body stretching workout involves a series of exercises designed to improve flexibility and range of motion across all major muscle groups."
+
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_alternating_renegade_rows" ,
+    "name": "dumbbell alternating renegade rows",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "The dumbbell alternating renegade row is a challenging full-body exercise that combines a plank with a rowing motion targeting the back muscles as well as the ab muscles."
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_hammer_grip_bench_press" ,
+    "name": "dumbbell hammer grip bench press",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "The dumbbell hammer grip bench press is a variation of the classic bench press that utilizes dumbbells and a neutral (hammer) grip, where your palms face each other,this targets both the shoulder and chest muscles."
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_hammer_alternating_curl" ,
+    "name": "dumbbell hammer alternating curl",
+    "gender": "female",
+    "category": "upper_body",
+    "description": "  Dumbbell hammer curls are a strength training exercise that primarily target the biceps brachii, but with a greater emphasis on the brachialis and brachioradialis muscles in the forearms."
+
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_overhead_one_arm_tricep_extension" ,
+    "name": " dumbbell overhead one arm tricep extension",
+    "gender": "female",
+    "category": "upper_body",
+    "description": " The dumbbell overhead triceps extension is an exercise that primarily targets the triceps muscles, located on the back of your upper arm."
+  },
+  {
+  "videoResId" :"woman_doing_bench_kneeling_lat_stretching" ,
+  "name": "bench kneeling lat stretch",
+  "gender": "female",
+  "category": "upper_body",
+  "description": " A bent knee lat stretch is a way to safely and effectively increase flexibility in your back muscles."
+
+  },
+  {
+    "videoResId": "woman_doing_dumbbell_hip_thrust",
+    "name": " dumbbell hip thrust",
+    "gender": "female",
+    "category": "lower_body",
+    "description": "The hip thrust is a popular exercise primarily targeting the gluteal muscles,Leads to increase in strength and size of the gluteal muscles as a whole,"
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_seated_calf_raise" ,
+    "name": " dumbbell seated calf raise",
+    "gender": "female",
+    "category": "lower_body",
+    "description": " The seated calf raise is a targeted exercise designed to strengthen the calf muscles, particularly the soleus muscle.."
+  },
+  {
+    "videoResId" :"woman_doing_dumbbell_good_morning" ,
+    "name": " dumbbell good morning",
+    "gender": "female",
+    "category": "lower_body",
+    "description": " This work out targets the gluteal muscles as well as the hamstrings leading to increased power and size in those muscles.."
+  },
+  {
+  "videoResId" :"woman_doing_dumbbell_single_leg_dead_lift" ,
+  "name": " dumbbell single leg dead-lift",
+  "gender": "female",
+  "category": "lower_body",
+  "description": " A single-leg dead-lift is a variation of the traditional dead-lift that focuses on unilateral (one-sided) strength and stability in the lower body muscles like the glutes and hamstrings and partly the lower back."
   }
+
 
 ]
