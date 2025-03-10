@@ -42,16 +42,20 @@ class WorkoutViewModel @Inject constructor(
                 viewModelScope.launch {
 
                     upsertProgress(event.progress)
+                    sideEffect = "Workouts Saved successfully"
+                    Log.d("event saver", "${event.progress}")
                 }
             }
             is SaveProgressEvent.UpdateProgress ->{
                 viewModelScope.launch {
                     UpdateWorkoutProgress(event.date, event.duration)
+                    sideEffect = "Workouts Updated successfully"
                 }
             }
             is SaveProgressEvent.getWorkoutsProgressByDate ->{
                 viewModelScope.launch {
                     getWorkoutsByDate(event.date)
+                    sideEffect = " Workout fetched successfuly"
                 }
             }
             is SaveProgressEvent.RemoveSideEffect ->{
@@ -60,6 +64,7 @@ class WorkoutViewModel @Inject constructor(
         }
     }
     private suspend fun upsertProgress(progress: WorkoutsProgress){
+        useCase.saveProgressUseCase(progress = progress)
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val progressSaved = useCase.getWorkoutProgress()
         Log.d("Progress Jobs", "$progressSaved")
@@ -70,7 +75,7 @@ class WorkoutViewModel @Inject constructor(
 //        }else{
 //            useCase.saveProgressUseCase(progress = progress)
 //        }
-        useCase.saveProgressUseCase(progress = progress)
+
     }
     private suspend fun UpdateWorkoutProgress(date: String, duration: Int){
         useCase.updateWorkoutsProgress(date, duration)

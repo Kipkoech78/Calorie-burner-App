@@ -71,14 +71,7 @@ object AppModule {
             "workoutProgressDB"
         ).build()
     }
-    @Provides
-    @Singleton
-    fun ProvidesMealsApi():foodmealsAPI{
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(foodmealsAPI::class.java)
-    }
+
     @Provides
     @Singleton
     fun providesWorkoutProgressDao(database: AppDatabase): WorkoutsProgressDao = database.workoutsProgressDao
@@ -105,6 +98,14 @@ object AppModule {
             searchMeals = SearchMeals(mealsRepository),
 
         )
+    }
+    @Provides
+    @Singleton
+    fun ProvidesMealsApi():foodmealsAPI{
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(foodmealsAPI::class.java)
     }
 //    @Provides
 //    @Singleton

@@ -176,7 +176,6 @@ fun ArticleCard(modifier: Modifier = Modifier,
 
 @Composable
 fun MealShimmerEffect(modifier: Modifier = Modifier) {
-
     val context = LocalContext.current
     Column(modifier = Modifier) {
         Box(

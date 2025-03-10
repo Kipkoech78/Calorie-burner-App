@@ -1,6 +1,7 @@
 package com.fitnessapp.presentation.workouts
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -61,7 +64,8 @@ fun WorkoutListScreen(
             modifier = Modifier
                 .statusBarsPadding()
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .background(color = colorResource(id = R.color.fit_background))
+
         ) {
             TopAppBar(title = {
                 Row(modifier = Modifier
@@ -86,7 +90,11 @@ fun WorkoutListScreen(
                         )
                 }
              })
-            filteredWorkouts.forEach { video ->
+            LazyColumn(
+
+            ) {
+                items(filteredWorkouts){video ->
+           // filteredWorkouts.forEach { video ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -103,14 +111,11 @@ fun WorkoutListScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Column(modifier = Modifier
-                            .width(120.dp)
-                            .weight(0.4f)) {
                             WorkoutsVideoPlayer(uri = video.videoResId)
-                        }
+
                     Column(
                         modifier = Modifier
-                            .weight(0.6f)
+                            .weight(0.7f)
                             .padding(16.dp)
                     ) {
                         Text(
@@ -127,6 +132,8 @@ fun WorkoutListScreen(
                         )
                     }
                 }
+                }
+           // }
                 }
             }
         }

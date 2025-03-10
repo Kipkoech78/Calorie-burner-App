@@ -3,6 +3,7 @@ package com.fitnessapp.presentation.workouts
 import android.net.Uri
 import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +38,8 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.SimpleExoPlayer
 import androidx.media3.ui.PlayerView
 import com.fitnessapp.R
+import com.fitnessapp.presentation.dietetics.ShimmerEffect
+import com.fitnessapp.presentation.dietetics.shimmerEffect
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -44,6 +48,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun WorkoutsVideoPlayer(uri: String) {
     val context = LocalContext.current
+    var isLoading by remember { mutableStateOf(true) }
     // Initialize the ExoPlayer
     val player = remember {
         SimpleExoPlayer.Builder(context).build().apply {
@@ -64,6 +69,13 @@ fun WorkoutsVideoPlayer(uri: String) {
     LaunchedEffect(player) {
         player.setMediaItem(mediaItem)
         player.prepare()
+        player.addListener(object : Player.Listener{
+            override fun onPlaybackStateChanged(state: Int) {
+                if(state == Player.STATE_READY){
+                    isLoading = false
+                }
+            }
+        })
         player.playWhenReady = true // Autoplay the video
     }
 
@@ -76,129 +88,21 @@ fun WorkoutsVideoPlayer(uri: String) {
         }
     }
     // Display the PlayerView
-    AndroidView(
-        modifier = Modifier.size(120.dp),
-        factory = { playerView.apply { this.player = player } }
-    )
-}
-
-
-
-@OptIn(UnstableApi::class)
-@Composable
-fun WorkoutsVideoDetailPlayer(uri: String,event: SaveProgressEvent) {
-    val context = LocalContext.current
-    var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
-    val coroutineScope = rememberCoroutineScope()
-    var isTimeElapsed by remember { mutableStateOf(0)}
-    var isPlaying by remember { mutableStateOf(true) }
-    var timerJob by remember{ mutableStateOf<Job?>(null)}
-
-    // Initialize the ExoPlayer
-    val player = remember {
-        SimpleExoPlayer.Builder(context).build().apply {
-            repeatMode = Player.REPEAT_MODE_ALL
-        }
-    }
-    // Initialize the PlayerView
-    val playerView = remember {
-        PlayerView(context).apply {
-            useController = false
-        }
-    }
-
-    // Parse the video URI
-    val videoUrl = Uri.parse("android.resource://${context.packageName}/raw/${uri}")
-    val mediaItem = MediaItem.fromUri(videoUrl)
-    fun startTimer() {
-        timerJob?.cancel() // Cancel previous timer if exists
-        timerJob = coroutineScope.launch {
-            while (timeLeft > 0) {
-                delay(1000L)
-                timeLeft--
-            }
-            player.playWhenReady = false // Stop video when timer ends
-            isPlaying = false
-        }
-    }
-    // Start the video and timer when the Composable is active
-    LaunchedEffect(Unit) {
-
-        player.setMediaItem(mediaItem)
-        player.prepare()
-        player.playWhenReady = true // Start video
-        startTimer()
-    }
-
-    // Release the player when the Composable is disposed
-    DisposableEffect(Unit) {
-        onDispose {
-            player.release()
-            timerJob?.cancel()
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            //.clip(RoundedCornerShape(20.dp))
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        // Display the PlayerView
+    if(isLoading){
+        Box(
+            modifier = Modifier
+                .size(160.dp)
+                .clip(MaterialTheme.shapes.medium)
+                .shimmerEffect()
+        )
+    }else{
         AndroidView(
             modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .fillMaxWidth()
-                .height(300.dp),
+                .size(160.dp)
+                .clip(RoundedCornerShape(20.dp)),
             factory = { playerView.apply { this.player = player } }
         )
-        // Timer display
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
-        ){
-            Text(
-                text = "Time left: ${timeLeft}s",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                color = colorResource(id = R.color.input_background)
-
-            )
-            fun returnEnabled(): Boolean{
-                return timeLeft >= 0
-            }
-
-            Button(
-                onClick = {
-                    if (isPlaying) {
-                        player.playWhenReady = false
-                        isPlaying = false
-                        timerJob?.cancel() // Pause timer
-                    } else {
-                        player.playWhenReady = true
-                        isPlaying = true
-                        startTimer() // Resume timer
-                    }
-                },
-                enabled = returnEnabled(),
-            ) {
-                Text(if (isPlaying) "Stop" else "Continue")
-            }
-
-        }
-        Button(
-            modifier = Modifier.padding(5.dp),
-            onClick = {
-                timeLeft = 60 // Reset timer
-                player.seekTo(0) // Restart video
-                player.playWhenReady = true
-                isPlaying = true
-                startTimer() // Restart timer
-            }
-        ) {
-            Text("Restart",)
-        }
-
     }
+
 }
+

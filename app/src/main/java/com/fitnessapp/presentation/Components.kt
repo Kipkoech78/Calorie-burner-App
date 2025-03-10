@@ -76,8 +76,8 @@ fun HomeCard(
             loadingState = true
             CoroutineScope(Dispatchers.Main).launch {
                 delay(100)
-                loadProgress { progres->
-                    progress = progres
+                loadProgress { progression->
+                    progress = progression
                 }
                 loadingState = false
                 onClick()

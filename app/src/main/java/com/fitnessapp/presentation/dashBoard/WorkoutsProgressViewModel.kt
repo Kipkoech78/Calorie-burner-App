@@ -1,5 +1,6 @@
 package com.fitnessapp.presentation.dashBoard
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -34,6 +35,10 @@ init {
             try {
                 val progressList = useCases.getWorkoutProgress()
                 // Group workouts by date and sum durations
+
+                val grouped = progressList.groupBy { it.date }
+                Log.d("grouped data", "$grouped")
+
                 val aggregatedWorkouts = progressList
                     .groupBy { it.date }
                     .map { (date, workouts) ->
@@ -41,9 +46,16 @@ init {
                     }
                     .sortedBy { it.date } // Ensure the dates are in order
                 _workoutsProgress.value = aggregatedWorkouts
+                Log.d("raw progress data", "$progressList")
+
+                Log.d("progress data", "$aggregatedWorkouts")
             } catch (e: Exception) {
                 sideEffect = "Error fetching data: ${e.message}"
             }
         }
+    }
+    // Function to trigger refresh
+    fun refreshWorkouts() {
+        getWorkouts()
     }
 }

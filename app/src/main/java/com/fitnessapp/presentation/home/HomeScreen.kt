@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.presentation.HomeCard
@@ -46,23 +48,29 @@ import com.fitnessapp.presentation.navgraph.Route
 fun HomeScreen(cards: List<CardItems> , navController: NavController, ) {
     Column(modifier = Modifier
         .fillMaxSize()
+        .background(color = colorResource(id = R.color.fit_background))
         .statusBarsPadding()) {
-        TopAppBar(title = {
-            Row(modifier = Modifier.heightIn(150.dp).fillMaxWidth().padding(top = 20.dp, bottom = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically) {
-                Image(painter = painterResource(id = R.drawable.fitnessapplogo), contentDescription =null,
-                    modifier = Modifier.clip(RoundedCornerShape(10.dp)).weight(0.2f).size(120.dp),
-                    contentScale = ContentScale.Fit
-                    )
-                Text(text = "Which plan Do you want to Start with.",
-                    modifier = Modifier.weight(0.78f),
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                    color = colorResource(
-                        id = R.color.body))
-            }
-        })
+        Row(
+            modifier = Modifier.fillMaxWidth().height(200.dp),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(painter = painterResource(id = R.drawable.fitnessapplogo), contentDescription =null,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .weight(0.20f)
+                    .height(120.dp),
+                contentScale = ContentScale.Crop
+            )
+            Text(text = "CALORIE BURNER",
+                modifier = Modifier.weight(0.8f),
+                textAlign = TextAlign.Center,
+                fontSize = 40.sp,
+                lineHeight = 10.sp,
+                fontWeight = FontWeight.Bold,
+                color = colorResource(
+                    id = R.color.body))
+        }
         Column(modifier = Modifier
             .verticalScroll(rememberScrollState())
         ) {

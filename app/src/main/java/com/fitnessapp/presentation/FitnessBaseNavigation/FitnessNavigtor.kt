@@ -51,6 +51,7 @@ import com.fitnessapp.presentation.dietetics.DieteticsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
 import com.fitnessapp.presentation.navgraph.Route
+import com.fitnessapp.presentation.workouts.SaveProgressEvent
 import com.fitnessapp.presentation.workouts.WorkoutListScreen
 import com.fitnessapp.presentation.workouts.WorkoutViewModel
 import com.fitnessapp.presentation.workouts.WorkoutsDetailScreen
@@ -212,6 +213,11 @@ fun FitnessNavigator() {
                 val videoJson = backStackEntry.arguments?.getString("video")
                 val video = videoJson?.let { Gson().fromJson(it, WorkoutVideo::class.java) }
                 Log.d("videos at navGraph", "$video")
+                if(viewModel.sideEffect != null){
+                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
+                    viewModel.onEvent(SaveProgressEvent.RemoveSideEffect)
+                }
+
                 WorkoutsDetailScreen(progress =video!!,
                     navigateUp = { navController.navigateUp()
                     },

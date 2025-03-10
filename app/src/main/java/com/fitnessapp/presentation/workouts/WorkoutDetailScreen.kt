@@ -1,9 +1,12 @@
 package com.fitnessapp.presentation.workouts
 import android.net.Uri
+import android.util.Log
 import androidx.annotation.OptIn
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -43,6 +47,8 @@ import androidx.media3.ui.PlayerView
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.models.WorkoutsProgress
+import com.fitnessapp.presentation.dietetics.ShimmerEffect
+import com.fitnessapp.presentation.dietetics.shimmerEffect
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,9 +64,11 @@ fun WorkoutsDetailScreen(
     navigateUp: () -> Unit
 ) {
     val context = LocalContext.current
-    var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
+    var timeLeft by remember { mutableStateOf(0) } // 1-minute timer
     val coroutineScope = rememberCoroutineScope()
-    var isTimeElapsed by remember { mutableStateOf(0)}
+    var isLoading by remember { mutableStateOf(true) }
+    var hasSaved by remember { mutableStateOf(false) }
+    var isEnabled by remember{ mutableStateOf(false)}
     var isPlaying by remember { mutableStateOf(true) }
     var timerJob by remember{ mutableStateOf<Job?>(null)}
     val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
@@ -76,22 +84,36 @@ fun WorkoutsDetailScreen(
             useController = false
         }
     }
+    fun saveProgress() {
+        if (timeLeft > 0 && !hasSaved) {
+            hasSaved = true
+            event(SaveProgressEvent.UpdateProgress(date = date, duration = timeLeft))
+            event(SaveProgressEvent.UpsertProgress(WorkoutsProgress(date = date, duration = timeLeft)))
+            Log.d("WorkoutProgress", "Saving progress on exit: date=$date, duration=$timeLeft")
+        }
+    }
 
     Column(modifier = Modifier
-        .fillMaxSize().padding(top = 10.dp)
+        .fillMaxSize()
+        .background(color = colorResource(id = R.color.fit_background))
+        .padding(top = 10.dp)
         .statusBarsPadding()
     ) {
+        Spacer(modifier = Modifier.height(18.dp))
         Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(3.dp),
+            .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription ="",
                 modifier = Modifier
-                    .clip(RoundedCornerShape(50.dp)).padding(5.dp)
+                    .clip(RoundedCornerShape(50.dp))
+                    .padding(5.dp)
                     .size(30.dp)
-                    .clickable { navigateUp() })
+                    .clickable {
+                        saveProgress()
+                        navigateUp()
+                    })
             progress?.category?.let {
                 Text(text = it,
                     modifier = Modifier
@@ -105,7 +127,9 @@ fun WorkoutsDetailScreen(
         }
         Spacer(modifier = Modifier.height(20.dp))
         progress?.videoResId?.let {
-            Column(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp))) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(20.dp))) {
 
 
                 // Parse the video URI
@@ -114,9 +138,9 @@ fun WorkoutsDetailScreen(
                 fun startTimer() {
                     timerJob?.cancel() // Cancel previous timer if exists
                     timerJob = coroutineScope.launch {
-                        while (timeLeft > 0) {
+                        while (timeLeft < 300) {
                             delay(1000L)
-                            timeLeft--
+                            timeLeft ++
                         }
                         player.playWhenReady = false // Stop video when timer ends
                         isPlaying = false
@@ -126,17 +150,24 @@ fun WorkoutsDetailScreen(
                 LaunchedEffect(Unit) {
                     player.setMediaItem(mediaItem)
                     player.prepare()
-                    player.playWhenReady = true // Start video
-                    startTimer()
+                    player.addListener(object : Player.Listener{
+                        override fun onPlaybackStateChanged(state:Int){
+                            if(state == Player.STATE_READY){
+                                isLoading = false
+                            }
+                        }
+                    })
+                    player.playWhenReady = false // Start video
+
                 }
 
-                // Release the player when the Composable is disposed
                 DisposableEffect(Unit) {
                     onDispose {
                         player.playWhenReady = false
                         player.stop()
                         player.release()
                         timerJob?.cancel()
+                        saveProgress()
                     }
                 }
 
@@ -146,60 +177,99 @@ fun WorkoutsDetailScreen(
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.Start
                 ) {
-                    // Display the PlayerView
-                    AndroidView(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(20.dp))
-                            .fillMaxWidth(),
+                    if(isLoading){
+                        Box(
+                            modifier = Modifier
+                                .height(400.dp).fillMaxWidth()
+                                .clip(MaterialTheme.shapes.medium)
+                                .shimmerEffect()
+                        )
+                    }else{
+                        // Display the PlayerView
+                        AndroidView(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(20.dp))
+                                .fillMaxWidth(),
 
-                        factory = { playerView.apply { this.player = player } }
-                    )
-                    // Timer display
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
-                    ){
-                        Text(
-                            text = "Time left: ${timeLeft}s",
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = colorResource(id = R.color.input_background))
-
-                        Button(
-                            enabled = isPlaying,
-                            onClick = {
-                                if (isPlaying) {
-                                    player.playWhenReady = false
-                                    isPlaying = false
-                                    timerJob?.cancel() // Pause timer
-                                } else {
-                                    player.playWhenReady = true
-                                    isPlaying = true
-                                    startTimer() // Resume timer
+                            factory = { playerView.apply { this.player = player } }
+                        )
+                        // Timer display
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 10.dp),
+                        ){
+                            Text(
+                                modifier = Modifier.weight(0.7f),
+                                text = "Timer: ${timeLeft}s",
+                                fontSize = 60.sp,
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = colorResource(id = R.color.input_background))
+                            if(isPlaying && timeLeft < 300){
+                                isEnabled = true
+                            }
+//                        Row(modifier = Modifier,
+//                            verticalAlignment = Alignment.CenterVertically,
+//                            horizontalArrangement = Arrangement.SpaceBetween) {
+                            if(timeLeft == 0){
+                                Button(
+                                    modifier = Modifier.padding(5.dp),
+                                    onClick = {
+                                        timeLeft = 0 // Reset timer
+                                        player.seekTo(0) // Restart video
+                                        player.playWhenReady = true
+//                                        isPlaying = true
+                                        startTimer() // Restart timer
+                                    }
+                                ) {
+                                    Text("Start",)
                                 }
-                            },
+                            }else{
+                                Button(
+                                    enabled = isEnabled,
+                                    onClick = {
 
+                                        if (isPlaying) {
+                                            player.playWhenReady = false
+                                            isPlaying = false
+                                            timerJob?.cancel() // Pause timer
+                                        } else {
+                                            player.playWhenReady = true
+                                            isPlaying = true
+                                            startTimer() // Resume timer
+                                        }
+                                    },
+                                    ) {
+                                    Text(if (isPlaying) "Stop" else "Continue")
+                                }
+                            }
+
+                            //   }
+                        }
+//                        if(!isPlaying && timeLeft != 0 ){
+//                            event(SaveProgressEvent.UpdateProgress(date = date, duration = 60 - timeLeft))
+//                            event(SaveProgressEvent.UpsertProgress(WorkoutsProgress(date = date, duration = (timeLeft))))
+//                            Log.d("WorkoutProgress", "Saving progress: date=$date, duration=$timeLeft")
+//
+//                        }
+                        Button(
+                            modifier = Modifier.padding(5.dp),
+                            onClick = {
+                                timeLeft = 300 // Reset timer
+                                player.seekTo(0) // Restart video
+                                player.playWhenReady = true
+                                isPlaying = true
+                                startTimer() // Restart timer
+                            }
                         ) {
-                            Text(if (isPlaying) "Stop" else "Continue")
+                            Text("Restart",)
                         }
+
                     }
-                    if(!isPlaying ){
-                        event(SaveProgressEvent.UpsertProgress(WorkoutsProgress(date = date, duration = (60 - timeLeft))))
-                        event(SaveProgressEvent.UpdateProgress(date = date, duration = 60 - timeLeft))
-                    }
-                    Button(
-                        modifier = Modifier.padding(5.dp),
-                        onClick = {
-                            timeLeft = 60 // Reset timer
-                            player.seekTo(0) // Restart video
-                            player.playWhenReady = true
-                            isPlaying = true
-                            startTimer() // Restart timer
-                        }
-                    ) {
-                        Text("Restart",)
-                    }
+
                 }
             }
         } ?: Text("Error: Video not found")

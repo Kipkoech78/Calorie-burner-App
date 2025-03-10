@@ -18,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -39,6 +40,10 @@ import com.fitnessapp.R
 @Composable
 fun DashboardScreen(viewModel: WorkoutsProgressViewModel) {
     val workoutsProgress by viewModel.workoutsProgress.collectAsState()
+    LaunchedEffect(Unit) {
+        viewModel.refreshWorkouts() // Refresh when page opens
+    }
+
     Column(
         modifier = Modifier
             .padding(horizontal = 30.dp)
@@ -46,6 +51,7 @@ fun DashboardScreen(viewModel: WorkoutsProgressViewModel) {
         verticalArrangement = Arrangement.Center, // Align at the bottom
         horizontalAlignment = CenterHorizontally
     ) {
+
         if (workoutsProgress.isNotEmpty()) {
             val durations = workoutsProgress.map { it.duration.toFloat() } // Y-axis data
             val days = workoutsProgress.map { it.date } // X-axis labels
@@ -152,7 +158,7 @@ fun BarGraph(
                 graphBarData.forEachIndexed { index, value ->
                     val graphBarHeight by animateFloatAsState(
                         targetValue = value / maxDuration,
-                        animationSpec = tween(durationMillis = 1000)
+                        animationSpec = tween(durationMillis = 1000), label = ""
                     )
 
                     Column(

@@ -5,6 +5,7 @@
     <color name="text_title">#E4E6EB</color>
     <color name="body">#B0B3B8</color>
     <color name="input_background">#3A3B3C</color>
+    <color name="fit_background">#000000</color>
     <color name="placeholder">#DDDDDD</color>
     <color name="shimmer">#414243</color>
 </resources>
