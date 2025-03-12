@@ -21,6 +21,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -35,10 +36,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.fitnessapp.R
 import com.fitnessapp.models.DayMeal
 import com.fitnessapp.models.Meals
@@ -57,6 +60,7 @@ import com.fitnessapp.presentation.workouts.WorkoutViewModel
 import com.fitnessapp.presentation.workouts.WorkoutsDetailScreen
 import com.fitnessapp.utils.Constants
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -101,7 +105,7 @@ fun FitnessNavigator() {
             gender = "male",
             desc = "Full Body",
             category = "full_body",
-            image = R.drawable.boyarmmuscles
+            image = R.drawable.fullbodymale
         ),
         CardItems(
             ratings = 4.5,
@@ -116,7 +120,7 @@ fun FitnessNavigator() {
             gender = "male",
             desc = "Lower Body",
             category = "lower_body",
-            image = R.drawable.abbsman
+            image = R.drawable.boyarmmuscles
         ),
 
         CardItems(
@@ -139,7 +143,7 @@ fun FitnessNavigator() {
             gender = "female",
             desc = "Upper Body",
             category = "upper_body",
-            image = R.drawable.fitnessgirl
+            image = R.drawable.womanabs01
         ),
         CardItems(
             ratings = 4.5,
@@ -207,24 +211,77 @@ fun FitnessNavigator() {
                 DieteticsScreen(meals = meals, navigateToDet =navController )
             }
             //
-            composable("WorkoutDetailScreen/{video}"){ backStackEntry ->
-                val videoResId = backStackEntry.arguments?.getString("video")
-                val viewModel: WorkoutViewModel = hiltViewModel()
+//            composable("WorkoutDetailScreen/{video}"){ backStackEntry ->
+//                val videoResId = backStackEntry.arguments?.getString("video")
+//                val viewModel: WorkoutViewModel = hiltViewModel()
+//                val videoJson = backStackEntry.arguments?.getString("video")
+//                val video = videoJson?.let { Gson().fromJson(it, WorkoutVideo::class.java) }
+//                Log.d("videos at navGraph", "$video")
+//                if(viewModel.sideEffect != null){
+//                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
+//                    viewModel.onEvent(SaveProgressEvent.RemoveSideEffect)
+//                }
+//
+//                WorkoutsDetailScreen(progress =video!!,
+//                    navigateUp = { navController.navigateUp()
+//                    },
+//                    event = viewModel::onEvent
+//                )
+//            }
+            composable("WorkoutDetailScreen/{video}") { backStackEntry ->
+                // val context = LocalContext.current
                 val videoJson = backStackEntry.arguments?.getString("video")
-                val video = videoJson?.let { Gson().fromJson(it, WorkoutVideo::class.java) }
-                Log.d("videos at navGraph", "$video")
-                if(viewModel.sideEffect != null){
-                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
-                    viewModel.onEvent(SaveProgressEvent.RemoveSideEffect)
+                val videoListJson = backStackEntry.arguments?.getString("videoList") // Full list of videos
+
+                val videoList: List<WorkoutVideo> = videoListJson?.let {
+                    try {
+                        Gson().fromJson(it, object : TypeToken<List<WorkoutVideo>>() {}.type)
+                    } catch (e: Exception) {
+                        Log.e("WorkoutDetailScreen", "Error parsing video list JSON", e)
+                        emptyList()
+                    }
+                } ?: emptyList()
+                val video = videoJson?.let {
+                    try {
+                        Gson().fromJson(it, WorkoutVideo::class.java)
+                    } catch (e: Exception) {
+                        Log.e("WorkoutDetailScreen", "Error parsing video JSON", e)
+                        null
+                    }
                 }
 
-                WorkoutsDetailScreen(progress =video!!,
-                    navigateUp = { navController.navigateUp()
+                if (video == null) {
+                    Log.e("WorkoutDetailScreen", "WorkoutVideo is null")
+                    navController.navigateUp()
+                    return@composable
+                }
+                val viewModel: WorkoutViewModel = hiltViewModel()
+                LaunchedEffect(viewModel.sideEffect) {
+                    viewModel.sideEffect?.let {
+                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                        viewModel.onEvent(SaveProgressEvent.RemoveSideEffect)
+                    }
+                }
+                // Find current video index in the listList screen
+                val currentIndex = videoList.indexOfFirst { it.videoResId == video.videoResId }
+                WorkoutsDetailScreen(
+                    progress = video,
+                    navigateUp = { navController.navigateUp() },
+                    event = viewModel::onEvent,
+                    onNext = {
+                        if (currentIndex < videoList.size - 1) {
+                            val nextVideoJson = Gson().toJson(videoList[currentIndex + 1])
+                            navController.navigate("WorkoutDetailScreen/$nextVideoJson")
+                        }
                     },
-                    event = viewModel::onEvent
+                    onPrevious = {
+                        if (currentIndex > 0) {
+                            val prevVideoJson = Gson().toJson(videoList[currentIndex - 1])
+                            navController.navigate("WorkoutDetailScreen/$prevVideoJson")
+                        }
+                    }
                 )
             }
-
             composable(Route.ProgressScreen.route){
                 val viewModel: WorkoutsProgressViewModel = hiltViewModel()
                 DashboardScreen( viewModel )

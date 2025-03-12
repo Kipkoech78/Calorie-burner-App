@@ -41,7 +41,7 @@
   {
     "days": {
       "day": "Day 4",
-      "image": "day_three_meal.png"
+      "image": "meal.png"
     },
     "meals": {
       "breakfast": { "type": "Fresh", "whatToEat": "Fruit salad with nuts\nWhole grain toast with cheese\nChicken curry with rice" },
@@ -54,7 +54,7 @@
   {
     "days": {
       "day": "Day 5",
-      "image": "day_five_meal.jpg"
+      "image": "lunchbox.png"
     },
     "meals": {
       "breakfast": { "type": "Break Fast", "whatToEat": "French toast with berries\nCottage cheese with pineapple\nSpaghetti with tomato sauce" },
@@ -80,7 +80,7 @@
   {
     "days": {
       "day": "Day 7",
-      "image": "fried_chicken.jpg"
+      "image": "fastfood.png"
     },
     "meals": {
       "breakfast": { "type": "Break Fast", "whatToEat": "Porridge with dates\nBanana with peanut butter\nFish curry with rice" },

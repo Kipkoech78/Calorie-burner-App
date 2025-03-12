@@ -102,7 +102,9 @@ fun WorkoutListScreen(
                         .padding(8.dp)
                         .clickable {
                             val videoJson = Uri.encode(Gson().toJson(video))
-                            navController.navigate("WorkoutDetailScreen/$videoJson")
+                            val videoListJson = Uri.encode(Gson().toJson(filteredWorkouts))
+                            navController.navigate("WorkoutDetailScreen/$videoJson?videoList=$videoListJson")
+
                         },
                     elevation = CardDefaults.cardElevation(50.dp) ,
                     shape = RoundedCornerShape(12.dp)

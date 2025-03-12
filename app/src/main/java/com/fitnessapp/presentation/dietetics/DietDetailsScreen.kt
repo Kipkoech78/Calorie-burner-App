@@ -14,8 +14,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,10 +25,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.fitnessapp.R
 import com.fitnessapp.models.DayMeal
 import com.fitnessapp.models.Meals
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
 fun DietDetailsScreen(mealContent: Meals,
@@ -35,11 +39,23 @@ fun DietDetailsScreen(mealContent: Meals,
 ) {
     Column(
         modifier = Modifier
-            .padding(20.dp).fillMaxSize().verticalScroll(rememberScrollState())
+            .padding(20.dp)
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        TopAppBar(title = { Text(text = "Today's Meals.",
+            textAlign = TextAlign.Center ,
+            color = colorResource(id = R.color.display_small),
+            fontSize = 23.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+        })
+        Spacer(modifier = Modifier.height(15.dp))
+
+
         FilledMealsCard(time = mealContent.breakfast.type, meal = mealContent.breakfast.whatToEat )
         Spacer(modifier = Modifier.height(10.dp))
         FilledMealsCard(time = mealContent.secondBreakfast.type, meal = mealContent.secondBreakfast.whatToEat )
@@ -71,7 +87,9 @@ fun FilledMealsCard(time: String, meal: String) {
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
-        modifier = Modifier.fillMaxWidth().height(200.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
     ) {
         Text(
             text = time,

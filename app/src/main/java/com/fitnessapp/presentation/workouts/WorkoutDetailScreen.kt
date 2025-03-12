@@ -16,9 +16,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -28,6 +34,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,10 +68,12 @@ import java.util.Locale
 fun WorkoutsDetailScreen(
     event: (SaveProgressEvent) -> Unit,
     progress: WorkoutVideo?,
-    navigateUp: () -> Unit
+    navigateUp: () -> Unit,
+    onPrevious:()-> Unit,
+    onNext:() -> Unit
 ) {
     val context = LocalContext.current
-    var timeLeft by remember { mutableStateOf(0) } // 1-minute timer
+    var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
     val coroutineScope = rememberCoroutineScope()
     var isLoading by remember { mutableStateOf(true) }
     var hasSaved by remember { mutableStateOf(false) }
@@ -85,22 +94,23 @@ fun WorkoutsDetailScreen(
         }
     }
     fun saveProgress() {
-        if (timeLeft > 0 && !hasSaved) {
-            hasSaved = true
-            event(SaveProgressEvent.UpdateProgress(date = date, duration = timeLeft))
-            event(SaveProgressEvent.UpsertProgress(WorkoutsProgress(date = date, duration = timeLeft)))
+        if ( !hasSaved) {
+         //   event(SaveProgressEvent.UpdateProgress(date = date, duration = 60 - timeLeft))
+            event(SaveProgressEvent.UpsertProgress(WorkoutsProgress(date = date, duration = 60-timeLeft)))
             Log.d("WorkoutProgress", "Saving progress on exit: date=$date, duration=$timeLeft")
+            hasSaved = true
+            navigateUp()
         }
     }
 
     Column(modifier = Modifier
         .fillMaxSize()
         .background(color = colorResource(id = R.color.fit_background))
-        .padding(top = 10.dp)
         .statusBarsPadding()
     ) {
         Spacer(modifier = Modifier.height(18.dp))
         Row(modifier = Modifier
+            .weight(0.1f)
             .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -112,7 +122,6 @@ fun WorkoutsDetailScreen(
                     .size(30.dp)
                     .clickable {
                         saveProgress()
-                        navigateUp()
                     })
             progress?.category?.let {
                 Text(text = it,
@@ -129,18 +138,17 @@ fun WorkoutsDetailScreen(
         progress?.videoResId?.let {
             Column(modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.9f)
                 .clip(RoundedCornerShape(20.dp))) {
-
-
                 // Parse the video URI
                 val videoUrl = Uri.parse("android.resource://${context.packageName}/raw/${progress.videoResId}")
                 val mediaItem = MediaItem.fromUri(videoUrl)
                 fun startTimer() {
                     timerJob?.cancel() // Cancel previous timer if exists
                     timerJob = coroutineScope.launch {
-                        while (timeLeft < 300) {
+                        while (timeLeft > 0) {
                             delay(1000L)
-                            timeLeft ++
+                            timeLeft --
                         }
                         player.playWhenReady = false // Stop video when timer ends
                         isPlaying = false
@@ -160,7 +168,6 @@ fun WorkoutsDetailScreen(
                     player.playWhenReady = false // Start video
 
                 }
-
                 DisposableEffect(Unit) {
                     onDispose {
                         player.playWhenReady = false
@@ -180,7 +187,8 @@ fun WorkoutsDetailScreen(
                     if(isLoading){
                         Box(
                             modifier = Modifier
-                                .height(400.dp).fillMaxWidth()
+                                .height(400.dp)
+                                .fillMaxWidth()
                                 .clip(MaterialTheme.shapes.medium)
                                 .shimmerEffect()
                         )
@@ -211,14 +219,11 @@ fun WorkoutsDetailScreen(
                             if(isPlaying && timeLeft < 300){
                                 isEnabled = true
                             }
-//                        Row(modifier = Modifier,
-//                            verticalAlignment = Alignment.CenterVertically,
-//                            horizontalArrangement = Arrangement.SpaceBetween) {
-                            if(timeLeft == 0){
+                            if(timeLeft == 60){
                                 Button(
                                     modifier = Modifier.padding(5.dp),
                                     onClick = {
-                                        timeLeft = 0 // Reset timer
+                                        timeLeft = 60 // Reset timer
                                         player.seekTo(0) // Restart video
                                         player.playWhenReady = true
 //                                        isPlaying = true
@@ -246,15 +251,7 @@ fun WorkoutsDetailScreen(
                                     Text(if (isPlaying) "Stop" else "Continue")
                                 }
                             }
-
-                            //   }
                         }
-//                        if(!isPlaying && timeLeft != 0 ){
-//                            event(SaveProgressEvent.UpdateProgress(date = date, duration = 60 - timeLeft))
-//                            event(SaveProgressEvent.UpsertProgress(WorkoutsProgress(date = date, duration = (timeLeft))))
-//                            Log.d("WorkoutProgress", "Saving progress: date=$date, duration=$timeLeft")
-//
-//                        }
                         Button(
                             modifier = Modifier.padding(5.dp),
                             onClick = {
@@ -269,9 +266,33 @@ fun WorkoutsDetailScreen(
                         }
 
                     }
-
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(text = progress.description,
+                        modifier = Modifier.padding(horizontal = 10.dp),
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Start,
+                        color = colorResource(id = R.color.text_title))
                 }
             }
         } ?: Text("Error: Video not found")
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier.weight(0.6f)) {
+                Text(text = "  ", )
+            }
+            ExtendedFloatingActionButton(
+                modifier = Modifier.weight(0.3f).padding(end = 5.dp),
+                onClick = { saveProgress() },
+                text = { Text(text = "Close ",
+                    color = colorResource(id = R.color.text_title),
+                    fontSize = 23.sp,
+                    fontWeight = FontWeight.Bold,
+                ) },
+                icon = { Icon(Icons.Filled.ExitToApp, "Extended floating action button.") },
+            )
+        }
     }
 }
