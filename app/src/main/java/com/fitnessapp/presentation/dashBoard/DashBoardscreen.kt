@@ -1,16 +1,15 @@
 package com.fitnessapp.presentation.dashBoard
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Paint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -18,19 +17,28 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -67,6 +75,7 @@ fun DashboardScreen(viewModel: WorkoutsProgressViewModel) {
     }
 Column(modifier = Modifier
     .fillMaxSize()
+    .verticalScroll(rememberScrollState())
     .statusBarsPadding()) {
     TopAppBar(
         title = { Text(text = "Track Your Progress",
@@ -74,25 +83,35 @@ Column(modifier = Modifier
         fontSize = 25.sp,
         fontWeight = FontWeight.SemiBold,
         color = colorResource(id = R.color.text_title))})
-    Spacer(modifier = Modifier.height(25.dp))
-
     Column(
         modifier = Modifier
-            .weight(0.7f)
-            .padding(horizontal = 30.dp),
+            .weight(0.85f)
+            .padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
-        Column(modifier = Modifier) {
+        Row(modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             CaloriePieChart(totalCalBurned)
+            OutlinedCard(onClick = { /*TODO*/ },
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                border = BorderStroke(1.dp, colorResource(id = R.color.text_title)),
+                modifier = Modifier
+                    .size(width = 270.dp, height = 200.dp)
+                
+            ) {
+                HeightSliderWithBMI(weight = weight)
+                
+            }
         }
 
         Spacer(modifier = Modifier.height(15.dp))
         if (workoutsProgress.isNotEmpty()) {
             val durations = workoutsProgress.map { it.duration.toFloat() } // Y-axis data
             val days = workoutsProgress.map { it.date } // X-axis labels
-            Text(text = "Dayly Workouts- time progress",
+            Text(text = "Daily Workouts- time progress",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Center, color = colorResource(id = R.color.display_small))
@@ -102,6 +121,7 @@ Column(modifier = Modifier
                 contentAlignment = Alignment.BottomCenter
             ) {
                 BarGraph(
+                    colors = R.color.blue,
                     graphBarData = durations,
                     xAxisScaleData = days,
                     barWidth = 20.dp,
@@ -115,6 +135,62 @@ Column(modifier = Modifier
 }
 }
 @Composable
+fun HeightSliderWithBMI(weight : Float ) {
+    var height by remember { mutableFloatStateOf(170f) } // Default height in cm
+    val bmi = remember(height) { weight / ((height / 100) * (height / 100)) } // BMI Formula
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Select Your Height", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "${height.toInt()} cm",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.text_title)
+        )
+
+        Slider(
+            value = height,
+            onValueChange = { height = it },
+            valueRange = 100f..220f, // Height range from 100cm to 220cm
+            steps = 120, // Smooth adjustments
+            modifier = Modifier
+                .padding(horizontal = 10.dp)
+                .fillMaxWidth()
+                .width(28.dp)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(modifier = Modifier.weight(0.7f),
+                text = "BMI: ${String.format("%.2f", bmi)}",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = if (bmi < 18.5) Color.Yellow else if (bmi < 25) colorResource(
+                    id = R.color.Green
+                ) else colorResource(id = R.color.Red)
+            )
+
+            Text(
+                text = if (bmi < 19.5) "Under Weight" else if (bmi >= 19.5 && bmi < 25) " Normal" else "Obese",
+                color = if (bmi < 18.5) Color.Yellow else if (bmi < 25) colorResource(
+                    id = R.color.Green
+                ) else colorResource(id = R.color.Red)
+
+
+                )
+        }
+
+    }
+}
+
+
+@Composable
 fun CaloriePieChart(caloriesBurned: Double, targetCalories: Double = 300.0) {
     val percentage = (caloriesBurned / targetCalories).coerceIn(0.0, 1.0) // Limit to 100%
     val sweepAngle = (percentage * 360).toFloat()  // Convert to degrees
@@ -122,53 +198,55 @@ fun CaloriePieChart(caloriesBurned: Double, targetCalories: Double = 300.0) {
     val textMeasurer = rememberTextMeasurer()
     val textLayoutResult = textMeasurer.measure(text = AnnotatedString(myText))
     val textSize = textLayoutResult.size
+    Column(verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Canvas(modifier = Modifier.size(150.dp)) {
+            val center = Offset(size.width / 2, size.height / 2)
+            val radius = size.minDimension / 2
 
+            // Draw full background circle (target)
+            drawArc(
+                color = androidx.compose.ui.graphics.Color.LightGray,
+                startAngle = 0f,
+                sweepAngle = 360f,
+                useCenter = false,
+                topLeft = Offset(center.x - radius, center.y - radius),
+                size = Size(radius * 2, radius * 2),
+                style = Stroke(width = 40f, cap = StrokeCap.Round)
+            )
 
-    Canvas(modifier = Modifier.size(250.dp)) {
-        val center = Offset(size.width / 2, size.height / 2)
-        val radius = size.minDimension / 2
-
-        // Draw full background circle (target)
-        drawArc(
-            color = androidx.compose.ui.graphics.Color.LightGray,
-            startAngle = 0f,
-            sweepAngle = 360f,
-            useCenter = false,
-            topLeft = Offset(center.x - radius, center.y - radius),
-            size = Size(radius * 2, radius * 2),
-            style = Stroke(width = 40f, cap = StrokeCap.Round)
+            // Draw burned calories progress
+            drawArc(
+                color = Color.Blue,
+                startAngle = -90f,  // Start from top
+                sweepAngle = sweepAngle,
+                useCenter = false,
+                topLeft = Offset(center.x - radius, center.y - radius),
+                size = Size(radius * 2, radius * 2),
+                style = Stroke(width = 50f, cap = StrokeCap.Square)
+            )
+            drawText(
+                textMeasurer, myText,
+                topLeft = Offset(
+                    (this.size.width - textSize.width) / 2f,
+                    (this.size.height - textSize.height) / 2f
+                ),
+            )
+        }
+        Text(
+            text = "${caloriesBurned.toInt()} / ${targetCalories.toInt()} kcal",
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 16.dp)
         )
 
-        // Draw burned calories progress
-        drawArc(
-            color = androidx.compose.ui.graphics.Color.Blue,
-            startAngle = -90f,  // Start from top
-            sweepAngle = sweepAngle,
-            useCenter = false,
-            topLeft = Offset(center.x - radius, center.y - radius),
-            size = Size(radius * 2, radius * 2),
-            style = Stroke(width = 40f, cap = StrokeCap.Square)
-        )
-        drawText(
-            textMeasurer, myText,
-            topLeft = Offset(
-                (this.size.width - textSize.width) / 2f,
-                (this.size.height - textSize.height) / 2f
-            ),
-        )
     }
-
-    Text(
-        text = "${caloriesBurned.toInt()} / ${targetCalories.toInt()} kcal",
-        fontSize = 20.sp,
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(top = 16.dp)
-    )
 }
 
 @Composable
 fun BarGraph(
+    colors: Int,
     graphBarData: List<Float>,
     xAxisScaleData: List<String>,
     barColor: androidx.compose.ui.graphics.Color,
@@ -209,7 +287,7 @@ fun BarGraph(
                             30f,
                             yPosition,
                             Paint().apply {
-                                color = Color.BLUE.hashCode()
+                                color = colors
                                 textAlign = Paint.Align.CENTER
                                 textSize = 18.sp.toPx()
                             }

@@ -8,6 +8,10 @@
     <color name="display_small">#000000</color>
     <color name="text_medium">#FF4E4B66</color>
     <color name="text_title">#000000</color>
+    <color name="yellow">#F6E022</color>
+    <color name="Green">#1E5320</color>
+    <color name="Red">#F22C1E</color>
+    <color name="blue">#035FF4</color>
     <color name="body">#4E4B66</color>
     <color name="input_background">#fff</color>
     <color name="fit_background">#FFFCFC</color>

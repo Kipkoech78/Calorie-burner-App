@@ -6,5 +6,6 @@ object Constants {
     const val GENDER = "user_gender"
     const val WEIGHT = "user_weight"
     const val U_PREF = "user_prefs"
+    const val U_HEIGHT = "user_height"
     const val BASE_URL ="https://www.themealdb.com/api/json/v1/1/"
 }
