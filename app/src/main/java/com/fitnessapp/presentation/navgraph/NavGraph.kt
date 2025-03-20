@@ -26,9 +26,7 @@ fun NavGraph(startDestination: String) {
         composable(Route.FitnessNavigatorScreen.route){
             FitnessNavigator()
         }
-        composable(Route.StartScreen.route){
-            Text(text = " StartScreeen Endtersddeadev ")
-        }
+
 //        composable(Route.WorkoutListScreen.route){
 //                fun getCategory(): String? {
 //                    return navController.previousBackStackEntry?.savedStateHandle?.get<String>("category")
