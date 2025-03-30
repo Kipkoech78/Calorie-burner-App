@@ -44,6 +44,7 @@ import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -295,8 +296,10 @@ fun WorkoutsDetailScreen(
                                     gender = progress.gender
                                 ))) },
                                 icon = { Icon(Icons.Outlined.Favorite,
-                                    "Extended floating action button.") },
-                                text = { Text(text = "Add To Favourite") },
+                                    "Extended floating action button.",
+                                    tint = Color.Red,) },
+
+                                text = { Text(text = "Like") },
                             )
                         }
                         ExtendedFloatingActionButton(

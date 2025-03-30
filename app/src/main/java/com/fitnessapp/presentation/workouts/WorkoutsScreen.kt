@@ -38,6 +38,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -76,7 +77,7 @@ fun WorkoutListScreen(
         ) {
             TopAppBar(
                 title = {
-                    Text(text = "Composure,, Lets keep fit Today.",modifier = Modifier.weight(0.8f),
+                    Text(text = "Composure,, keep fit Today.",modifier = Modifier.weight(0.8f),
                         textAlign = TextAlign.Center,
                         fontSize = 24.sp,
                         color = colorResource(id = R.color.text_title),
@@ -88,7 +89,8 @@ fun WorkoutListScreen(
                         Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = null ,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
-                                .size(40.dp).clickable { navigateUp() }
+                                .size(40.dp)
+                                .clickable { navigateUp() }
                                 .clip(CircleShape)
                         )
                     }
@@ -98,7 +100,10 @@ fun WorkoutListScreen(
                     IconButton(onClick = {
                         navController.navigate(Route.Favourites.route)
                     }) {
-                        Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+                        Icon(Icons.Filled.Favorite,
+                            modifier = Modifier.size(6git0.dp),
+                            tint = Color.Red,
+                            contentDescription = "Localized description")
                     }
                 }
             )
