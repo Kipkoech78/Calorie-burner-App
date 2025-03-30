@@ -1,8 +1,10 @@
 package com.fitnessapp.data.repository.manager
 
 import com.fitnessapp.data.repository.local.WorkoutsProgressDao
+import com.fitnessapp.models.WorkoutVideo
 
 import com.fitnessapp.models.WorkoutsProgress
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import kotlin.time.Duration
 
@@ -29,9 +31,24 @@ class WorkoutProgressRepository(
             WorkoutsProgress(  it.id, it.date, it.duration)
         }
     }
+     fun getFavWorkouts(): Flow<List<WorkoutVideo>> {
+        return workoutsProgressDao.getFavWorkouts()
+    }
     suspend fun  updateWorkoutDuration(date: String, duration: Int){
         workoutsProgressDao.updateWorkoutDuration(
             date, duration
+        )
+    }
+    suspend fun delete(video:WorkoutVideo){
+        workoutsProgressDao.delete(video)
+    }
+    suspend fun addFavWorkouts(video: WorkoutVideo){
+      workoutsProgressDao.addFavWorkouts(
+            WorkoutVideo(videoResId =video.videoResId,
+                name= video.name,
+                category =  video.category,
+               gender =  video.gender,
+                description = video.description)
         )
     }
 }

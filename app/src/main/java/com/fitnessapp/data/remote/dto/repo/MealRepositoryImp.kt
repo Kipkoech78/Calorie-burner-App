@@ -15,6 +15,7 @@ import com.fitnessapp.models.Food
 import com.fitnessapp.models.FoodResponse
 import com.fitnessapp.models.Meal
 import com.fitnessapp.models.NetworkError
+import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.models.genModels.Data
 import kotlinx.coroutines.flow.Flow
 
@@ -50,7 +51,6 @@ class MealRepositoryImp(
             it.toGeneralError() // Ensure this method correctly maps exceptions
         }
     }
-
 
 
 

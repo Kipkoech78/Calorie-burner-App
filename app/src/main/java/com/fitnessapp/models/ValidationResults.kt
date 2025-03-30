@@ -6,9 +6,10 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 @Parcelize
+@Entity
 data class WorkoutVideo(
-    val videoResId: String,  // Resource ID of the video
-    val name : String = "name of the workout",
+    @PrimaryKey val videoResId: String = "",  // Resource ID of the video
+    val name : String,
     val category: String,
     val gender: String,
     val description: String
@@ -19,6 +20,17 @@ data class WorkoutsProgress(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: String,
   //  val workoutName: String,
+    val duration: Int
+): Parcelable
+
+@Parcelize
+@Entity
+data class ViewedWorkoutProgress(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    // val date: String,
+    val video: String,
+    val workoutName: String,
+    val description: String,
     val duration: Int
 ): Parcelable
 

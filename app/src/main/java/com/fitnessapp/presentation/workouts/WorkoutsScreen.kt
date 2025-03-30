@@ -18,11 +18,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,6 +38,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +49,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.presentation.EmptyScreen
+import com.fitnessapp.presentation.navgraph.Route
 import com.google.gson.Gson
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,29 +74,34 @@ fun WorkoutListScreen(
                 .background(color = colorResource(id = R.color.fit_background))
 
         ) {
-            TopAppBar(title = {
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = "",
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clip(RoundedCornerShape(50.dp))
-                            .padding(end = 20.dp)
-                            .clickable { navigateUp() }
-                    )
+            TopAppBar(
+                title = {
                     Text(text = "Composure,, Lets keep fit Today.",modifier = Modifier.weight(0.8f),
                         textAlign = TextAlign.Center,
                         fontSize = 24.sp,
                         color = colorResource(id = R.color.text_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = {}) {
+                        Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = null ,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(40.dp).clickable { navigateUp() }
+                                .clip(CircleShape)
                         )
+                    }
+                },
+                actions = {
+                    // RowScope here, so these icons will be placed horizontally
+                    IconButton(onClick = {
+                        navController.navigate(Route.Favourites.route)
+                    }) {
+                        Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+                    }
                 }
-             })
+            )
             LazyColumn(
 
             ) {

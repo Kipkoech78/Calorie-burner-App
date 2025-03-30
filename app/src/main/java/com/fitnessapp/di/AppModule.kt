@@ -22,6 +22,9 @@ import com.fitnessapp.domain.useCases.ReadWeight
 import com.fitnessapp.domain.useCases.SaveAppEntry
 import com.fitnessapp.domain.useCases.SaveGender
 import com.fitnessapp.domain.useCases.SaveWeight
+import com.fitnessapp.domain.useCases.progressUseCases.AddFavWorkouts
+import com.fitnessapp.domain.useCases.progressUseCases.Delete
+import com.fitnessapp.domain.useCases.progressUseCases.GetVafWorkouts
 import com.fitnessapp.domain.useCases.progressUseCases.GetWorkoutProgress
 import com.fitnessapp.domain.useCases.progressUseCases.GetWorkoutProgressByDate
 import com.fitnessapp.domain.useCases.progressUseCases.ProgressUseCases
@@ -79,7 +82,9 @@ object AppModule {
             context = application,
             klass = AppDatabase::class.java,
             "workoutProgressDB"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -93,7 +98,10 @@ object AppModule {
             getWorkoutProgress = GetWorkoutProgress(progressRepository),
             saveProgressUseCase = SaveProgressUseCase(progressRepository),
             getWorkoutProgressByDate = GetWorkoutProgressByDate(progressRepository),
-            updateWorkoutsProgress = UpdateWorkoutsProgress(progressRepository)
+            updateWorkoutsProgress = UpdateWorkoutsProgress(progressRepository),
+            delete = Delete(progressRepository),
+            getVafWorkouts = GetVafWorkouts(progressRepository),
+            addFavWorkouts = AddFavWorkouts(progressRepository),
         )
     }
     @Provides
@@ -120,8 +128,6 @@ object AppModule {
     }
     @Provides
     @Singleton
-
-
     fun ProvideMealNodeAPI(): FoodAPi {
         return Retrofit.Builder()
             .baseUrl(MEAL_BASE_URL).addConverterFactory(GsonConverterFactory.create())
@@ -129,17 +135,4 @@ object AppModule {
             .build()
             .create(FoodAPi::class.java)
     }
-//    @Provides
-//    @Singleton
-//    fun provideNewsUseCases(newsRepository: NewsRepository,  newsDao: NewsDao): NewsUseCases {
-//        return  NewsUseCases(
-//            getNews = GetNews(newsRepository),
-//            searchNews = SearchNews(newsRepository),
-//            deleteArticle = DeleteArticle(newsRepository),
-//            upsertArticle = UpsertArticle(newsRepository),
-//            selectArticle = SelectArticle(newsRepository),
-//            selectArticleById = SelectArticleById(newsDao)
-//        )
-//    }
-
 }

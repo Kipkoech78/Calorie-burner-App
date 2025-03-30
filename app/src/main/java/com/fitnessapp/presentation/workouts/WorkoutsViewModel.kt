@@ -58,6 +58,12 @@ class WorkoutViewModel @Inject constructor(
                     sideEffect = " Workout fetched successfuly"
                 }
             }
+            is SaveProgressEvent.InsertFavWorkouts -> {
+                viewModelScope.launch {
+                    insertFavWorkouts(event.video)
+                    sideEffect ="Video added successfully added to favourite."
+                }
+            }
             is SaveProgressEvent.RemoveSideEffect ->{
                 sideEffect = null
             }
@@ -82,6 +88,9 @@ class WorkoutViewModel @Inject constructor(
     }
     private suspend fun getWorkoutsByDate(date: String){
         useCase.getWorkoutProgressByDate(date)
+    }
+    private suspend fun insertFavWorkouts(video: WorkoutVideo){
+        useCase.addFavWorkouts(video= video)
     }
     //
     private val _workouts = MutableStateFlow<List<WorkoutVideo>>(emptyList())

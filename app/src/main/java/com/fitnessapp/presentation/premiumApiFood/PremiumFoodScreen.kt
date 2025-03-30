@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.models.genModels.Data
 import com.fitnessapp.presentation.dietetics.LoadingDialog
@@ -49,6 +50,7 @@ import com.fitnessapp.presentation.dietetics.LoadingDialog
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PremiumFoodScreen(
+    navController: NavController,
     viewModel: PremiumFoodViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -62,11 +64,11 @@ internal fun PremiumFoodScreen(
             title = { Text("Your Today's Meal ") },
             modifier = Modifier.clickable {viewModel.getMeals() },
             navigationIcon = {
-                IconButton(onClick = {}) {
-                    Image(painter = painterResource(id = R.drawable.lunchbox), contentDescription = null ,
+                IconButton(onClick = {navController.navigateUp()}) {
+                    Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = null ,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(100.dp)
+                            .size(50.dp)
                             .clip(CircleShape)
                     )
                 }
@@ -97,7 +99,6 @@ internal fun PremiumFoodScreen(
                 modifier = Modifier.padding(8.dp)
             )
         }
-
         // Show Food List
         FoodsContent(state = state)
     }

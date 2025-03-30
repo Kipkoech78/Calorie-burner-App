@@ -17,15 +17,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -38,6 +43,7 @@ import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -51,26 +57,27 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.SimpleExoPlayer
 import androidx.media3.ui.PlayerView
+import androidx.navigation.NavController
 import com.fitnessapp.R
 import com.fitnessapp.models.WorkoutVideo
 import com.fitnessapp.models.WorkoutsProgress
 import com.fitnessapp.presentation.dietetics.ShimmerEffect
 import com.fitnessapp.presentation.dietetics.shimmerEffect
+import com.fitnessapp.presentation.navgraph.Route
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 @OptIn(UnstableApi::class)
+@kotlin.OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutsDetailScreen(
     event: (SaveProgressEvent) -> Unit,
     progress: WorkoutVideo?,
     navigateUp: () -> Unit,
-    onPrevious:()-> Unit,
-    onNext:() -> Unit
+    navController: NavController
 ) {
     val context = LocalContext.current
     var timeLeft by remember { mutableStateOf(60) } // 1-minute timer
@@ -108,33 +115,39 @@ fun WorkoutsDetailScreen(
         .background(color = colorResource(id = R.color.fit_background))
         .statusBarsPadding()
     ) {
-        Spacer(modifier = Modifier.height(18.dp))
-        Row(modifier = Modifier
-            .weight(0.1f)
-            .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription ="",
-                modifier = Modifier
-                    .clip(RoundedCornerShape(50.dp))
-                    .padding(5.dp)
-                    .size(30.dp)
-                    .clickable {
-                        saveProgress()
-                    })
-            progress?.category?.let {
-                Text(text = it,
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .weight(0.8f),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = colorResource(id = R.color.text_title)
-                )
+        TopAppBar(
+            title = {
+                progress?.category?.let {
+                    Text(text = it,
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .weight(0.8f),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        color = colorResource(id = R.color.text_title)
+                    )
+                }
+            },
+            navigationIcon = {
+                IconButton(onClick = {}) {
+                    Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = null ,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(40.dp).clickable { saveProgress() }
+                            .clip(CircleShape)
+                    )
+                }
+            },
+            actions = {
+                // RowScope here, so these icons will be placed horizontally
+                IconButton(onClick = {
+
+                }) {
+                    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+                }
             }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
+        )
+        Spacer(modifier = Modifier.height(12.dp))
         progress?.videoResId?.let {
             Column(modifier = Modifier
                 .fillMaxWidth()
@@ -177,7 +190,6 @@ fun WorkoutsDetailScreen(
                         saveProgress()
                     }
                 }
-
                 Column(
                     modifier = Modifier
                         //.clip(RoundedCornerShape(20.dp))
@@ -230,7 +242,7 @@ fun WorkoutsDetailScreen(
                                         startTimer() // Restart timer
                                     }
                                 ) {
-                                    Text("Start",)
+                                    Text("Start")
                                 }
                             }else{
                                 Button(
@@ -262,7 +274,7 @@ fun WorkoutsDetailScreen(
                                 startTimer() // Restart timer
                             }
                         ) {
-                            Text("Restart",)
+                            Text("Restart")
                         }
 
                     }
@@ -273,20 +285,36 @@ fun WorkoutsDetailScreen(
                         fontSize = 18.sp,
                         textAlign = TextAlign.Start,
                         color = colorResource(id = R.color.text_title))
+                    Button(onClick = {
+                        event(SaveProgressEvent.InsertFavWorkouts(WorkoutVideo(
+                            videoResId = progress.videoResId ,
+                             name = progress.name,
+                            category = progress.category,
+                            description = progress.description,
+                            gender = progress.gender
+                        )))
+
+                    }) {
+                        Text(text = "Save")
+                    }
                 }
             }
         } ?: Text("Error: Video not found")
         Spacer(modifier = Modifier.height(10.dp))
+
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(modifier = Modifier.weight(0.6f)) {
-                Text(text = "  ", )
+                Text(text = "  ")
             }
             ExtendedFloatingActionButton(
-                modifier = Modifier.weight(0.3f).padding(end = 5.dp),
+                modifier = Modifier
+                    .weight(0.3f)
+                    .padding(end = 5.dp),
                 onClick = { saveProgress() },
-                text = { Text(text = "Close ",
+                text = { Text(
+                    text = "Close ",
                     color = colorResource(id = R.color.text_title),
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,

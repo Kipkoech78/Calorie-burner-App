@@ -53,6 +53,9 @@ import com.fitnessapp.presentation.dashBoard.DashboardScreen
 import com.fitnessapp.presentation.dashBoard.WorkoutsProgressViewModel
 import com.fitnessapp.presentation.dietetics.DietDetailsScreen
 import com.fitnessapp.presentation.dietetics.DieteticsViewModel
+import com.fitnessapp.presentation.favourites.FavViewModel
+import com.fitnessapp.presentation.favourites.Favourites
+import com.fitnessapp.presentation.favourites.FavouritesState
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
 import com.fitnessapp.presentation.navgraph.Route
@@ -227,7 +230,13 @@ fun FitnessNavigator() {
                         }
                     }
                 }
-                PremiumFoodScreen( )
+                PremiumFoodScreen(navController = navController )
+            }
+            composable(route = Route.Favourites.route){
+                val viewModel: FavViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                Favourites(state = state, navController = navController,
+                 )
             }
 
             composable(Route.DieteticsScreen.route){
@@ -290,21 +299,11 @@ fun FitnessNavigator() {
                 // Find current video index in the listList screen
                 val currentIndex = videoList.indexOfFirst { it.videoResId == video.videoResId }
                 WorkoutsDetailScreen(
+                    navController = navController,
                     progress = video,
                     navigateUp = { navController.navigateUp() },
                     event = viewModel::onEvent,
-                    onNext = {
-                        if (currentIndex < videoList.size - 1) {
-                            val nextVideoJson = Gson().toJson(videoList[currentIndex + 1])
-                            navController.navigate("WorkoutDetailScreen/$nextVideoJson")
-                        }
-                    },
-                    onPrevious = {
-                        if (currentIndex > 0) {
-                            val prevVideoJson = Gson().toJson(videoList[currentIndex - 1])
-                            navController.navigate("WorkoutDetailScreen/$prevVideoJson")
-                        }
-                    }
+
                 )
             }
             composable(Route.ProgressScreen.route){

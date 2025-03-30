@@ -12,5 +12,5 @@ sealed class Route(val route: String) {
     object FitnessNavigatorScreen: Route("FitnessNavigator")
     object  DietDetailsScreen: Route("DietDetailsScreen")
     object  PremiumFoodScreen: Route("PremiumFoodScreen")
-
+    object  Favourites: Route("Favourites")
 }
