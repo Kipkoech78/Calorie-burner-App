@@ -3,6 +3,7 @@ package com.fitnessapp.models
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.fitnessapp.models.genModels.Data
 import kotlinx.parcelize.Parcelize
 
 data class MealResponse(
@@ -10,6 +11,11 @@ data class MealResponse(
     val status: String,
     val totalResults:Int
     )
+data class FoodResponse(
+    val meals: List<Data>,
+    val status: String,
+    val totalResults:Int
+)
 
 @Parcelize
 @Entity
@@ -42,3 +48,14 @@ data class MealString(
     val type: String,
     val whatToEat: String
 )
+@Parcelize
+data class Food(
+    val name: String,
+    val category: String,
+    val calories: Int,
+    val protein: Int,
+    val carbs: Int,
+    val fat: Int,
+    val goal: List<String>
+):Parcelable
+

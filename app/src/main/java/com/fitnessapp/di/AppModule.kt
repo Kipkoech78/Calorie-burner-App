@@ -3,11 +3,11 @@ package com.fitnessapp.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.fitnessapp.data.remote.dto.FoodAPi
 import com.fitnessapp.data.remote.dto.foodmealsAPI
 import com.fitnessapp.data.remote.dto.repo.MealRepositoryImp
 import com.fitnessapp.data.repository.local.AppDatabase
 import com.fitnessapp.data.repository.local.WorkoutsProgressDao
-import com.fitnessapp.data.repository.manager.WorkoutRepository
 import com.fitnessapp.data.repository.manager.LocalUserManagerImpl
 import com.fitnessapp.data.repository.manager.WorkoutProgressRepository
 import com.fitnessapp.domain.manager.LocalUserManager
@@ -28,6 +28,7 @@ import com.fitnessapp.domain.useCases.progressUseCases.ProgressUseCases
 import com.fitnessapp.domain.useCases.progressUseCases.SaveProgressUseCase
 import com.fitnessapp.domain.useCases.progressUseCases.UpdateWorkoutsProgress
 import com.fitnessapp.utils.Constants.BASE_URL
+import com.fitnessapp.utils.Constants.MEAL_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -88,7 +89,7 @@ object AppModule {
     }
     @Provides
     @Singleton
-    fun ProvideMealsRepository(mealsAPI: foodmealsAPI): MealsRepository = MealRepositoryImp(mealsAPI)
+    fun ProvideMealsRepository(mealsAPI: foodmealsAPI, foodAPi: FoodAPi): MealsRepository = MealRepositoryImp(mealsAPI, foodAPi)
 
     @Provides
     @Singleton
@@ -96,6 +97,7 @@ object AppModule {
         return  MealsUseCases(
             getMeals = GetMeals(mealsRepository),
             searchMeals = SearchMeals(mealsRepository),
+            //getFood = GetFood(mealsRepository),
 
         )
     }
@@ -106,6 +108,14 @@ object AppModule {
             .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(foodmealsAPI::class.java)
+    }
+    @Provides
+    @Singleton
+    fun ProvideMealNodeAPI(): FoodAPi {
+        return Retrofit.Builder()
+            .baseUrl(MEAL_BASE_URL).addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(FoodAPi::class.java)
     }
 //    @Provides
 //    @Singleton

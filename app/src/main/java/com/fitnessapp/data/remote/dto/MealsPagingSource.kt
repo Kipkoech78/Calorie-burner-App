@@ -2,6 +2,7 @@ package com.fitnessapp.data.remote.dto
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.fitnessapp.models.Food
 import com.fitnessapp.models.Meal
 
 class MealsPagingSource(private val foodMealsAPI: foodmealsAPI, ) :

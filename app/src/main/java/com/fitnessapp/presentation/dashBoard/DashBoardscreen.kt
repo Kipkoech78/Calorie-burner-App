@@ -57,8 +57,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fitnessapp.R
 import com.fitnessapp.utils.Constants
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(viewModel: WorkoutsProgressViewModel) {
@@ -212,7 +210,7 @@ fun CaloriePieChart(caloriesBurned: Double, targetCalories: Double = 300.0) {
                 useCenter = false,
                 topLeft = Offset(center.x - radius, center.y - radius),
                 size = Size(radius * 2, radius * 2),
-                style = Stroke(width = 40f, cap = StrokeCap.Round)
+                style = Stroke(width = 50f, cap = StrokeCap.Round)
             )
 
             // Draw burned calories progress

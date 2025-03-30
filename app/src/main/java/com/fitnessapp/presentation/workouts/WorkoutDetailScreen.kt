@@ -255,7 +255,7 @@ fun WorkoutsDetailScreen(
                         Button(
                             modifier = Modifier.padding(5.dp),
                             onClick = {
-                                timeLeft = 300 // Reset timer
+                                timeLeft = 60 // Reset timer
                                 player.seekTo(0) // Restart video
                                 player.playWhenReady = true
                                 isPlaying = true

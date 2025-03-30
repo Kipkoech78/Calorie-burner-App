@@ -31,17 +31,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.fitnessapp.R
 import com.fitnessapp.models.DayMeal
 import com.fitnessapp.models.Meals
@@ -54,16 +56,19 @@ import com.fitnessapp.presentation.dietetics.DieteticsViewModel
 import com.fitnessapp.presentation.home.CardItems
 import com.fitnessapp.presentation.home.HomeScreen
 import com.fitnessapp.presentation.navgraph.Route
+import com.fitnessapp.presentation.premiumApiFood.PremiumFoodScreen
+import com.fitnessapp.presentation.premiumApiFood.PremiumFoodViewModel
 import com.fitnessapp.presentation.workouts.SaveProgressEvent
 import com.fitnessapp.presentation.workouts.WorkoutListScreen
 import com.fitnessapp.presentation.workouts.WorkoutViewModel
 import com.fitnessapp.presentation.workouts.WorkoutsDetailScreen
 import com.fitnessapp.utils.Constants
+import com.fitnessapp.utils.Event
+import com.fitnessapp.utils.EventBus
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FitnessNavigator() {
     val context = LocalContext.current
@@ -203,6 +208,26 @@ fun FitnessNavigator() {
                     //Todo
                 } )
 
+            }
+            composable(Route.PremiumFoodScreen.route){
+                val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
+                LaunchedEffect(key1 = lifecycleOwner) {
+                    lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        EventBus.events.collect { event ->
+                            when (event) {
+                                is Event.Toast -> {
+                                    Toast.makeText(
+                                        context,
+                                        event.message,
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                            }
+                        }
+                    }
+                }
+                PremiumFoodScreen( )
             }
 
             composable(Route.DieteticsScreen.route){

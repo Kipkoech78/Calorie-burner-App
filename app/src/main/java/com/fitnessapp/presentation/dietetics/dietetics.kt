@@ -19,8 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
@@ -40,7 +42,14 @@ import androidx.navigation.Navigator
 import com.fitnessapp.R
 import com.fitnessapp.models.DayMeal
 import com.google.gson.Gson
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DieteticsScreen(
     //meals: LazyPagingItems<Meal>,
@@ -48,12 +57,37 @@ fun DieteticsScreen(
     viewModel: DieteticsViewModel = hiltViewModel(),
     navigateToDet: NavController
 
+
                    // navigateToDetails: (Meal) -> Unit,
                     ) {
   //  val gridItems  = remember { mutableStateOf(viewModel.daylyMeals.value) }
     Column(modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()) {
+
+        TopAppBar(
+            title = { Text("Check Premium Food here  --> ") },
+            modifier = Modifier.clickable { navigateToDet.navigate("PremiumFoodScreen") },
+            navigationIcon = {
+                IconButton(onClick = {navigateToDet.navigate("PremiumFoodScreen") }) {
+                    Image(painter = painterResource(id = R.drawable.fried_chicken), contentDescription = null ,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape)
+                    )
+                }
+            },
+            actions = {
+                // RowScope here, so these icons will be placed horizontally
+                IconButton(onClick = { /* doSomething() */ }) {
+                    Image(painter = painterResource(id = R.drawable.lunchbox), contentDescription = null )
+                }
+//                IconButton(onClick = { /* doSomething() */ }) {
+//                    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+//                }
+            }
+        )
         Spacer(modifier = Modifier.height(10.dp))
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),

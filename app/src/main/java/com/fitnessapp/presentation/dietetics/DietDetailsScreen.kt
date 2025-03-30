@@ -68,17 +68,6 @@ fun DietDetailsScreen(mealContent: Meals,
         Spacer(modifier = Modifier.height(10.dp))
 
 
-//        Text(text = mealContent.breakfast.type)
-//        Text(text = mealContent.breakfast.whatToEat)
-//        Text(text = mealContent.secondBreakfast.type)
-//        Text(text = mealContent.secondBreakfast.whatToEat)
-//        Text(text = mealContent.lunch.type)
-//        Text(text = mealContent.lunch.whatToEat)
-//        Text(text = mealContent.afternoonSnack.type)
-//        Text(text = mealContent.afternoonSnack.whatToEat)
-//        Text(text = mealContent.dinner.type)
-//        Text(text = mealContent.dinner.whatToEat)
-
     }
 }
 @Composable

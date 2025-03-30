@@ -39,7 +39,6 @@ class LocalUserManagerImpl(private val context: Context) : LocalUserManager {
             }
 
     }
-
     override fun readGender(): Flow<String?> {
         return context.dataStore.data.map { preferences ->
             preferences[PreferenceKeys.U_GENDER]

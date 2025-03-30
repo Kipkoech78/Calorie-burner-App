@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,6 +36,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
@@ -142,7 +145,8 @@ fun ArticleCard(modifier: Modifier = Modifier,
         AsyncImage(
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth().height(350.dp)
+                .fillMaxWidth()
+                .height(350.dp)
                 .clip(RoundedCornerShape(20.dp)),
             model = ImageRequest.Builder(context).data(meal.strMealThumb).build(),
             contentDescription =null )
@@ -180,7 +184,8 @@ fun MealShimmerEffect(modifier: Modifier = Modifier) {
     Column(modifier = Modifier) {
         Box(
             modifier = Modifier
-                .height(300.dp).fillMaxWidth()
+                .height(300.dp)
+                .fillMaxWidth()
                 .clip(MaterialTheme.shapes.medium)
                 .shimmerEffect()
         )
@@ -193,20 +198,23 @@ fun MealShimmerEffect(modifier: Modifier = Modifier) {
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth().height(100.dp)
+                    .fillMaxWidth()
+                    .height(100.dp)
                     .clip(MaterialTheme.shapes.medium)
                     .shimmerEffect()
             )
             Column(horizontalAlignment = Alignment.Start) {
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth().height(50.dp)
+                        .fillMaxWidth()
+                        .height(50.dp)
                         .clip(MaterialTheme.shapes.medium)
                         .shimmerEffect()
                 )
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth().height(150.dp)
+                        .fillMaxWidth()
+                        .height(150.dp)
                         .clip(MaterialTheme.shapes.medium)
                         .shimmerEffect()
                 )
@@ -217,6 +225,24 @@ fun MealShimmerEffect(modifier: Modifier = Modifier) {
         }
     }
 
+}
+
+@Composable
+fun LoadingDialog(isLoading: Boolean ) {
+    Dialog(onDismissRequest = { /*TODO*/ },
+        properties = DialogProperties(dismissOnClickOutside = false)
+    ) {
+        Box(modifier = Modifier
+            .width(200.dp)
+            .clip(RoundedCornerShape(20.dp)),
+            contentAlignment = Alignment.Center
+        ){
+            CircularProgressIndicator(modifier = Modifier.padding(13.dp))
+        }
+
+        
+    }
+    
 }
 
 

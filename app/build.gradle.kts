@@ -5,6 +5,7 @@ plugins {
     id ("com.google.dagger.hilt.android")
     id ("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
+
 }
 
 android {
@@ -123,6 +124,10 @@ dependencies {
 
     //Gson
     implementation ("com.google.code.gson:gson:2.12.1")
+    //arrow
+    implementation(libs.arrow.core)
+    implementation(libs.arrow.fx.coroutines)
+    implementation(libs.arrow.optics)
 }
 
 // Allow references to generated code
