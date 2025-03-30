@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -133,19 +134,13 @@ fun WorkoutsDetailScreen(
                     Image(painter = painterResource(id = R.drawable.ic_back_arrow), contentDescription = null ,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(40.dp).clickable { saveProgress() }
+                            .size(40.dp)
+                            .clickable { saveProgress() }
                             .clip(CircleShape)
                     )
                 }
             },
-            actions = {
-                // RowScope here, so these icons will be placed horizontally
-                IconButton(onClick = {
 
-                }) {
-                    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
-                }
-            }
         )
         Spacer(modifier = Modifier.height(12.dp))
         progress?.videoResId?.let {
@@ -199,7 +194,7 @@ fun WorkoutsDetailScreen(
                     if(isLoading){
                         Box(
                             modifier = Modifier
-                                .height(400.dp)
+                                .height(500.dp)
                                 .fillMaxWidth()
                                 .clip(MaterialTheme.shapes.medium)
                                 .shimmerEffect()
@@ -285,42 +280,42 @@ fun WorkoutsDetailScreen(
                         fontSize = 18.sp,
                         textAlign = TextAlign.Start,
                         color = colorResource(id = R.color.text_title))
-                    Button(onClick = {
-                        event(SaveProgressEvent.InsertFavWorkouts(WorkoutVideo(
-                            videoResId = progress.videoResId ,
-                             name = progress.name,
-                            category = progress.category,
-                            description = progress.description,
-                            gender = progress.gender
-                        )))
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                    }) {
-                        Text(text = "Save")
+                    Row(verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(0.6f)) {
+                            ExtendedFloatingActionButton(
+                                onClick = {event(SaveProgressEvent.InsertFavWorkouts(WorkoutVideo(
+                                    videoResId = progress.videoResId ,
+                                    name = progress.name,
+                                    category = progress.category,
+                                    description = progress.description,
+                                    gender = progress.gender
+                                ))) },
+                                icon = { Icon(Icons.Outlined.Favorite,
+                                    "Extended floating action button.") },
+                                text = { Text(text = "Add To Favourite") },
+                            )
+                        }
+                        ExtendedFloatingActionButton(
+                            modifier = Modifier
+                                .weight(0.3f)
+                                .padding(end = 5.dp),
+                            onClick = { saveProgress() },
+                            text = { Text(
+                                text = "Close ",
+                                color = colorResource(id = R.color.text_title),
+                                fontSize = 23.sp,
+                                fontWeight = FontWeight.Bold,
+                            ) },
+                            icon = { Icon(Icons.Filled.ExitToApp, "Extended floating action button.") },
+                        )
                     }
                 }
             }
         } ?: Text("Error: Video not found")
-        Spacer(modifier = Modifier.height(10.dp))
 
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(modifier = Modifier.weight(0.6f)) {
-                Text(text = "  ")
-            }
-            ExtendedFloatingActionButton(
-                modifier = Modifier
-                    .weight(0.3f)
-                    .padding(end = 5.dp),
-                onClick = { saveProgress() },
-                text = { Text(
-                    text = "Close ",
-                    color = colorResource(id = R.color.text_title),
-                    fontSize = 23.sp,
-                    fontWeight = FontWeight.Bold,
-                ) },
-                icon = { Icon(Icons.Filled.ExitToApp, "Extended floating action button.") },
-            )
-        }
     }
 }
