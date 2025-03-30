@@ -34,9 +34,18 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
+
+val okHttpClient = OkHttpClient.Builder()
+    .connectTimeout(30, TimeUnit.SECONDS)  // Increase connection timeout
+    .readTimeout(30, TimeUnit.SECONDS)     // Increase read timeout
+    .writeTimeout(30, TimeUnit.SECONDS)    // Increase write timeout
+    .build()
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -111,9 +120,12 @@ object AppModule {
     }
     @Provides
     @Singleton
+
+
     fun ProvideMealNodeAPI(): FoodAPi {
         return Retrofit.Builder()
             .baseUrl(MEAL_BASE_URL).addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .build()
             .create(FoodAPi::class.java)
     }
